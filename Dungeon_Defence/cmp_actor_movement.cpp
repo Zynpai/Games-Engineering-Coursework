@@ -45,13 +45,26 @@ void BulletMovementComponent::update(double dt) {
 		float magnitude = sqrt(pow(target.getPosition().x - _parent->getPosition().x, 2) + pow(target.getPosition().y - _parent->getPosition().y, 2));
 		Vector2f direction = (target.getPosition() - _parent->getPosition()) / (magnitude);
 		move(direction*_speed*float(dt));
+		//if the distance between the bullet and target is low enough, terminate the bullet and damage the target
+		//pow and sqrt to get a positive distance, actual distance number is placeholder
+		if (sqrt(pow(target.getPosition().x - _parent->getPosition().x,2)) <= 10 && sqrt(pow(target.getPosition().y - _parent->getPosition().y, 2)) <=10) {
+			//insert damage scripts here
+			_parent->setAlive(false);
+			_parent->setVisible(false);
+		}
 	}
 	else {
 		float magnitude = sqrt(pow(VecTarget.x - _parent->getPosition().x, 2) + pow(VecTarget.y - _parent->getPosition().y, 2));
 		Vector2f direction = (VecTarget - _parent->getPosition()) / (magnitude);
 		move(direction*_speed*float(dt));
-	}
+		//copy of above
+		if (sqrt(pow(VecTarget.x - _parent->getPosition().x, 2)) <= 10 && sqrt(pow(VecTarget.y - _parent->getPosition().y, 2)) <= 10) {
 
+			_parent->setAlive(false);
+			_parent->setVisible(false);
+		}
+	}
+	
 }
 
 
@@ -90,7 +103,7 @@ void PlayerMovementComponent::update(double dt) {
 			a->move(_parent->getPosition() - bullet->getPosition());
 			bulletpointer++;
 			if (bulletpointer >= 5) { bulletpointer = 0; }
-			shotCooldown = 2.0f;
+			shotCooldown = 1.0f;
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
