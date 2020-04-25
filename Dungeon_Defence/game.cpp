@@ -53,6 +53,8 @@ void GameScene::load() {
 		s->getShape().setFillColor(Color::Blue);
 		s->getShape().setOrigin(Vector2f(8.0f, 8.0f));
 		a->setSpeed(300);
+		//temporary damage val, can be changed for balance later
+		a->damage = 20;
 		bullet->setAlive(false);
 		bullet->setVisible(false);
 		_em.list.push_back(bullet);

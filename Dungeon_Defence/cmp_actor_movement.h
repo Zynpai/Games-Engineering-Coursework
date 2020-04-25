@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <ecm.h>
 
 class ActorMovementComponent : public Component {
@@ -39,6 +40,8 @@ public:
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
 	int bulletpointer = 0;
 	float shotCooldown = 0.0f;
+	float wallCooldown = 0.0f;
+	float tremorCooldown = 0.0f;
 	void update(double dt) override;
 };
 

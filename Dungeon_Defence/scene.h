@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "ecm.h"
 
 class Scene {
@@ -10,6 +11,5 @@ public:
 	virtual void render();
 	virtual void load() = 0;
 	std::vector<std::shared_ptr<Entity>> &getEnts();
-
 	EntityManager _em;
 };

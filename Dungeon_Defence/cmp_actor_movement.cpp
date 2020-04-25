@@ -97,10 +97,10 @@ void PlayerMovementComponent::update(double dt) {
 		if (shotCooldown <= 0.0f) {
 			auto bullet = Bulletlist.at(bulletpointer);
 			auto a = Componentlist.at(bulletpointer);
-			bullet->setAlive(true);
-			bullet->setVisible(true);
 			a->VecTarget = Vector2f(Mouse::getPosition());
 			a->move(_parent->getPosition() - bullet->getPosition());
+			bullet->setAlive(true);
+			bullet->setVisible(true);
 			bulletpointer++;
 			if (bulletpointer >= 5) { bulletpointer = 0; }
 			shotCooldown = 1.0f;
@@ -108,9 +108,20 @@ void PlayerMovementComponent::update(double dt) {
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
 		//Wall ability
+		if (wallCooldown <= 0.0f) {
+			
+
+			wallCooldown = 10.0f;
+		}
+
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num2)) {
 		//Tremor ability
+		if (tremorCooldown <= 0.0f) {
+
+
+			tremorCooldown = 5.0f;
+		}
 	}
 
 	//update cooldowns

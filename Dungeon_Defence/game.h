@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "scene.h"
 
 extern std::shared_ptr<Scene> gameScene;
