@@ -11,6 +11,5 @@ public:
 	virtual void load() = 0;
 	std::vector<std::shared_ptr<Entity>> &getEnts();
 
-protected:
 	EntityManager _em;
 };

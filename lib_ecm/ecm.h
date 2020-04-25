@@ -12,13 +12,14 @@ class Component;
 class Entity {
 
 protected:
-	std::vector<std::shared_ptr<Component>> _components;
+	
 	sf::Vector2f _position;
 	float _rotation;
 	bool _alive = true;       // should be updated
 	bool _visible = true;     // should be rendered
-	bool _fordeletion; // should be deleted
+	bool _fordeletion = false; // should be deleted
 public:
+	std::vector<std::shared_ptr<Component>> _components;
 	Entity();
 	virtual ~Entity();
 	virtual void update(double dt);

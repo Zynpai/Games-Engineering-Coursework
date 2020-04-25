@@ -76,8 +76,12 @@ void EntityManager::update(double dt)
 {
 	for each (auto e in list)
 	{
-		//if (e->isAlive){  }
-		e->update(dt);
+		if (e->isAlive()) { 
+			e->update(dt); 
+		}
+		if (e->is_fordeletion()) {
+			//delete the thing
+		}
 	}
 }
 
@@ -85,8 +89,10 @@ void EntityManager::render()
 {
 	for each (auto e in list)
 	{
-		//if (e->isVisible) {  }
-		e->render();
+		if (e->isVisible()) { 
+			e->render(); 
+		}
+		
 	}
 }
 

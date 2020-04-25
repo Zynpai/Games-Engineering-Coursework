@@ -20,12 +20,29 @@ public:
 	void update(double dt) override;
 };
 
+class BulletMovementComponent : public ActorMovementComponent {
+public:
+	BulletMovementComponent(Entity* p);
+	Entity target;
+	//true if going towards an entity, false if going to a position, default false
+	bool targeted = false;
+	sf::Vector2f VecTarget;
+	float damage;
+	void update(double dt) override;
+};
 
 class PlayerMovementComponent : public ActorMovementComponent {
 public:
 	PlayerMovementComponent(Entity* p);
+	//i know this is bad practice but i dont have time to make a workaround right now
+	std::vector<std::shared_ptr<Entity>> Bulletlist;
+	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
+	int bulletpointer = 0;
+	float shotCooldown = 0.0f;
 	void update(double dt) override;
 };
+
+
 
 class CreepMovementComponent : public ActorMovementComponent {
 public:

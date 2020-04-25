@@ -1,6 +1,16 @@
 #include "cmp_actor_movement.h"
+#include <SFML/Graphics.hpp>
+#include "Player.h"
+#include "ecm.h"
+#include "levelsystem.h"
+#include "system_renderer.h"
+#include "cmp_sprite.h"
+#include "cmp_actor_movement.h"
+#include "scene.h"
+#include "game.h"
 #include <LevelSystem.h>
 
+using namespace std;
 using namespace sf;
 
 void ActorMovementComponent::update(double dt) {}
@@ -19,11 +29,30 @@ void ActorMovementComponent::move(const sf::Vector2f& p) {
 	//}
 }
 
+
 void ActorMovementComponent::move(float x, float y) {
 	move(Vector2f(x, y));
 }
 float ActorMovementComponent::getSpeed() const { return _speed; }
 void ActorMovementComponent::setSpeed(float speed) { _speed = speed; }
+
+
+BulletMovementComponent::BulletMovementComponent(Entity* p)
+	: ActorMovementComponent(p) {}
+
+void BulletMovementComponent::update(double dt) {
+	if (targeted) {
+		float magnitude = sqrt(pow(target.getPosition().x - _parent->getPosition().x, 2) + pow(target.getPosition().y - _parent->getPosition().y, 2));
+		Vector2f direction = (target.getPosition() - _parent->getPosition()) / (magnitude);
+		move(direction*_speed*float(dt));
+	}
+	else {
+		float magnitude = sqrt(pow(VecTarget.x - _parent->getPosition().x, 2) + pow(VecTarget.y - _parent->getPosition().y, 2));
+		Vector2f direction = (VecTarget - _parent->getPosition()) / (magnitude);
+		move(direction*_speed*float(dt));
+	}
+
+}
 
 
 PlayerMovementComponent::PlayerMovementComponent(Entity* p)
@@ -50,7 +79,34 @@ void PlayerMovementComponent::update(double dt) {
 		move(Vector2f(0.0f, _speed)*float(dt));
 		
 	}
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+		//Basic attack
+		if (shotCooldown <= 0.0f) {
+			auto bullet = Bulletlist.at(bulletpointer);
+			auto a = Componentlist.at(bulletpointer);
+			bullet->setAlive(true);
+			bullet->setVisible(true);
+			a->VecTarget = Vector2f(Mouse::getPosition());
+			a->move(_parent->getPosition() - bullet->getPosition());
+			bulletpointer++;
+			if (bulletpointer >= 5) { bulletpointer = 0; }
+			shotCooldown = 2.0f;
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+		//Wall ability
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+		//Tremor ability
+	}
+
+	//update cooldowns
+	if (shotCooldown > 0.0f) {
+		shotCooldown = shotCooldown - dt;
+	}
 }
+
+
 
 
 
@@ -60,3 +116,4 @@ CreepMovementComponent::CreepMovementComponent(Entity* p)
 void CreepMovementComponent::update(double dt) {
 
 }
+

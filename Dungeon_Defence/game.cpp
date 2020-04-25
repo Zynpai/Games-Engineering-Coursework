@@ -42,6 +42,23 @@ void GameScene::render() {
 }
 
 void GameScene::load() {
+	//this is probably the least efficient way of doing things, but i am unsure of a different way
+	std::vector<std::shared_ptr<Entity>> playerBullets;
+	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
+	for (int i = 0; i < 5; i++) {
+		auto bullet = make_shared<Entity>();
+		auto s = bullet->addComponent<ShapeComponent>();
+		auto a = bullet->addComponent<BulletMovementComponent>();
+		s->setShape<CircleShape>(8.0f);
+		s->getShape().setFillColor(Color::Blue);
+		s->getShape().setOrigin(Vector2f(8.0f, 8.0f));
+		bullet->setAlive(false);
+		bullet->setVisible(false);
+		_em.list.push_back(bullet);
+		playerBullets.push_back(bullet);
+		BulletComponents.push_back(a);
+	}
+
 	auto player = make_shared<Entity>();
 	auto s = player->addComponent<ShapeComponent>();
 	auto a = player->addComponent<PlayerMovementComponent>();
@@ -49,5 +66,8 @@ void GameScene::load() {
 	s->getShape().setFillColor(Color::Yellow);
 	s->getShape().setOrigin(Vector2f(12.f, 12.f));
 	a->move(600, 400);
+	a->Bulletlist = playerBullets;
+	a->Componentlist = BulletComponents;
 	_em.list.push_back(player);
+
 }
