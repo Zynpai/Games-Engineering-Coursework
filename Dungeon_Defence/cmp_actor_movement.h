@@ -25,7 +25,7 @@ class BulletMovementComponent : public ActorMovementComponent {
 public:
 	BulletMovementComponent(Entity* p);
 	Entity target;
-	//true if going towards an entity, false if going to a position, default false
+	//true if going towards an entity, false if going in a line, default false
 	bool targeted = false;
 	sf::Vector2f VecTarget;
 	float damage;

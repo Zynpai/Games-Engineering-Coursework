@@ -11,8 +11,6 @@
 using namespace sf;
 using namespace std;
 
-float gameHeight = 800.0f;
-float gameWidth = 1200.0f;
 
 shared_ptr<Scene> gameScene;
 shared_ptr<Scene> menuScene;
@@ -57,7 +55,13 @@ void render(RenderWindow &window) {
 
 
 int main() {
-	RenderWindow window(VideoMode(gameWidth, gameHeight), "Dungeon Defence");
+	VideoMode desktop = VideoMode::getDesktopMode();
+	//now it can run at any resolution in fullscreen (saves me trying to figure out the relative mouse possitions for aiming
+
+	float gameHeight = desktop.height;
+	float gameWidth = desktop.width;
+	
+	RenderWindow window(VideoMode(gameWidth, gameHeight, desktop.bitsPerPixel), "Dungeon Defence" , Style::Fullscreen);
 	load(window);
 	window.setVerticalSyncEnabled(true);
 	while (window.isOpen()) {

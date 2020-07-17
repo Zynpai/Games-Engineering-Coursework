@@ -13,6 +13,7 @@
 using namespace std;
 using namespace sf;
 
+
 void ActorMovementComponent::update(double dt) {}
 
 ActorMovementComponent::ActorMovementComponent(Entity* p)
@@ -54,15 +55,10 @@ void BulletMovementComponent::update(double dt) {
 		}
 	}
 	else {
-		float magnitude = sqrt(pow(VecTarget.x - _parent->getPosition().x, 2) + pow(VecTarget.y - _parent->getPosition().y, 2));
-		Vector2f direction = (VecTarget - _parent->getPosition()) / (magnitude);
-		move(direction*_speed*float(dt));
-		//copy of above
-		if (sqrt(pow(VecTarget.x - _parent->getPosition().x, 2)) <= 10 && sqrt(pow(VecTarget.y - _parent->getPosition().y, 2)) <= 10) {
-
-			_parent->setAlive(false);
-			_parent->setVisible(false);
-		}
+		
+		move(VecTarget*_speed*float(dt));
+		//if out of bounds of screen, delete
+		
 	}
 	
 }
@@ -97,7 +93,10 @@ void PlayerMovementComponent::update(double dt) {
 		if (shotCooldown <= 0.0f) {
 			auto bullet = Bulletlist.at(bulletpointer);
 			auto a = Componentlist.at(bulletpointer);
-			a->VecTarget = Vector2f(Mouse::getPosition());
+			Vector2f MousePos = Vector2f(Mouse::getPosition());
+			float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
+			Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
+			a->VecTarget = direction;
 			a->move(_parent->getPosition() - bullet->getPosition());
 			bullet->setAlive(true);
 			bullet->setVisible(true);
