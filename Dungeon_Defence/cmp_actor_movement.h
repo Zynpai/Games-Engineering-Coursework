@@ -50,7 +50,7 @@ public:
 };
 
 
-
+//for enemy use
 class CreepMovementComponent : public ActorMovementComponent {
 public:
 	CreepMovementComponent(Entity* p);

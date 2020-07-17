@@ -108,11 +108,11 @@ void PlayerMovementComponent::update(double dt) {
 			Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
 			a->VecTarget = direction;
 			a->move(_parent->getPosition() - bullet->getPosition());
-			bullet->setAlive(true);
-			bullet->setVisible(true);
 			bulletpointer++;
 			if (bulletpointer >= 5) { bulletpointer = 0; }
 			shotCooldown = 1.0f;
+			bullet->setAlive(true);
+			bullet->setVisible(true);
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
@@ -147,7 +147,7 @@ void PlayerMovementComponent::update(double dt) {
 
 
 
-
+//for enemy use
 
 CreepMovementComponent::CreepMovementComponent(Entity* p)
 	: ActorMovementComponent(p) {}

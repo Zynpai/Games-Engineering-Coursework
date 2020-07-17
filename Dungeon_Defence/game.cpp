@@ -99,4 +99,32 @@ void GameScene::load() {
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
+	//time to settup a list of turrets to call appon, each with their own list of bullets.... yeah this is gonna be messy
+	//turret limit of 30, can be changed if needed
+	for (int j = 0; j < 30; j++) {
+		//each turret has 2 bullets to call uppon, shouldnt need more than this unless its long range/ rapid fire? (even then just make the bullets faster)
+		for (int k = 0; k < 2; k++) {
+			//hurray for more inefficiency!
+			std::vector<std::shared_ptr<Entity>> turretBullets;
+			std::vector<std::shared_ptr<BulletMovementComponent>> turretBulletComponents;
+			auto bullet = make_shared<Entity>();
+			auto s = bullet->addComponent<ShapeComponent>();
+			auto a = bullet->addComponent<BulletMovementComponent>();
+			s->setShape<CircleShape>(8.0f);
+			s->getShape().setFillColor(Color::Cyan);
+			s->getShape().setOrigin(Vector2f(8.0f, 8.0f));
+			a->setSpeed(500);
+		
+			bullet->setPosition(Vector2f(-50.0f, -50.0f));
+			bullet->setAlive(false);
+			bullet->setVisible(false);
+			_em.list.push_back(bullet);
+			turretBullets.push_back(bullet);
+			turretBulletComponents.push_back(a);
+		
+		
+		}
+	}
+
+
 }
