@@ -27,7 +27,15 @@ void MenuScene::render() {
 }
 
 void MenuScene::load() {
+	//adding a square so menu isnt just a black void
+	auto menuSquare = make_shared<Entity>();
+	auto s = menuSquare->addComponent<ShapeComponent>();
+	menuSquare->setPosition(Vector2f(600,600));
+	s->setShape<RectangleShape>(Vector2f(120.0f,120.f));
+	s->getShape().setFillColor(Color::Magenta);
+	s->getShape().setOrigin(Vector2f(12.f, 12.f));
 
+	_em.list.push_back(menuSquare);
 }
 
 void GameScene::update(double dt) {
