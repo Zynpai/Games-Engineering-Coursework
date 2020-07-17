@@ -55,12 +55,14 @@ void GameScene::load() {
 		a->setSpeed(300);
 		//temporary damage val, can be changed for balance later
 		a->damage = 20;
+		bullet->setPosition(Vector2f(-50.0f,-50.0f));
 		bullet->setAlive(false);
 		bullet->setVisible(false);
 		_em.list.push_back(bullet);
 		playerBullets.push_back(bullet);
 		BulletComponents.push_back(a);
 	}
+	
 
 	auto player = make_shared<Entity>();
 	auto s = player->addComponent<ShapeComponent>();
@@ -71,6 +73,22 @@ void GameScene::load() {
 	a->move(600, 400);
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
+
+	a->Tremor = make_shared<Entity>();
+	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
+	//an abombination, but a needed one (afaik)
+	auto b = a->Tremor->addComponent<ShapeComponent>();
+	b->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
+	b->getShape().setFillColor(Color::Red);
+
+	a->Wall = make_shared<Entity>();
+	a->Wall->setPosition(Vector2f(-50.0f,-50.0f));
+	auto c = a->Wall->addComponent<ShapeComponent>();
+	c->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
+	c->getShape().setFillColor(Color::Green);
+
 	_em.list.push_back(player);
+	_em.list.push_back(a->Tremor);
+	_em.list.push_back(a->Wall);
 
 }

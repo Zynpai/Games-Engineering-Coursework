@@ -38,6 +38,10 @@ public:
 	//i know this is bad practice but i dont have time to make a workaround right now
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
+
+	std::shared_ptr<Entity> Wall;
+	std::shared_ptr<Entity> Tremor;
+
 	int bulletpointer = 0;
 	float shotCooldown = 0.0f;
 	float wallCooldown = 0.0f;

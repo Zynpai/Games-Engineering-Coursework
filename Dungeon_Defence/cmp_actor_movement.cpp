@@ -58,7 +58,17 @@ void BulletMovementComponent::update(double dt) {
 		
 		move(VecTarget*_speed*float(dt));
 		//if out of bounds of screen, delete
-		
+		VideoMode desktop = VideoMode::getDesktopMode();
+
+		float gameHeight = desktop.height;
+		float gameWidth = desktop.width;
+
+		if (_parent->getPosition().x <= 0 || _parent->getPosition().y <= 0 || _parent->getPosition().x >= gameWidth || _parent->getPosition().y >= gameHeight) {
+			_parent->setAlive(false);
+			_parent->setVisible(false);
+		}
+		//if it collides with an enemy, do damage and disapear
+
 	}
 	
 }
@@ -68,22 +78,22 @@ PlayerMovementComponent::PlayerMovementComponent(Entity* p)
 	: ActorMovementComponent(p) {}
 
 void PlayerMovementComponent::update(double dt) {
-	if (Keyboard::isKeyPressed(Keyboard::Left)) {
+	if (Keyboard::isKeyPressed(Keyboard::A)) {
 		
 		move(Vector2f(-_speed, 0.0f)*float(dt));
 		
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Right)) {
+	if (Keyboard::isKeyPressed(Keyboard::D)) {
 		
 		move(Vector2f(_speed, 0.0f)*float(dt));
 		
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Up)) {
+	if (Keyboard::isKeyPressed(Keyboard::W)) {
 	
 		move(Vector2f(0.0f, -_speed)*float(dt));
 		
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Down)) {
+	if (Keyboard::isKeyPressed(Keyboard::S)) {
 	
 		move(Vector2f(0.0f, _speed)*float(dt));
 		
@@ -108,8 +118,8 @@ void PlayerMovementComponent::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
 		//Wall ability
 		if (wallCooldown <= 0.0f) {
+			Wall->setPosition(Vector2f(Mouse::getPosition()));
 			
-
 			wallCooldown = 10.0f;
 		}
 
@@ -117,8 +127,8 @@ void PlayerMovementComponent::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Num2)) {
 		//Tremor ability
 		if (tremorCooldown <= 0.0f) {
-
-
+			Tremor->setPosition(Vector2f(Mouse::getPosition()));
+			
 			tremorCooldown = 5.0f;
 		}
 	}
@@ -126,6 +136,12 @@ void PlayerMovementComponent::update(double dt) {
 	//update cooldowns
 	if (shotCooldown > 0.0f) {
 		shotCooldown = shotCooldown - dt;
+	}
+	if (wallCooldown > 0.0f) {
+		wallCooldown = wallCooldown - dt;
+	}
+	if (tremorCooldown > 0.0f) {
+		tremorCooldown = tremorCooldown - dt;
 	}
 }
 
