@@ -5,7 +5,6 @@
 #include "levelsystem.h"
 #include "system_renderer.h"
 #include "cmp_sprite.h"
-#include "cmp_actor_movement.h"
 #include "scene.h"
 #include "game.h"
 #include <LevelSystem.h>
