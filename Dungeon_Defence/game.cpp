@@ -9,6 +9,8 @@
 #include "cmp_actor_movement.h"
 #include "scene.h"
 #include "game.h"
+#include "cmp_turret.h"
+#include "turret_controller.h"
 
 using namespace sf;
 using namespace std;
@@ -50,6 +52,7 @@ void GameScene::render() {
 }
 
 void GameScene::load() {
+	TurretController tControl;
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
 	std::vector<std::shared_ptr<Entity>> playerBullets;
 	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
@@ -102,18 +105,18 @@ void GameScene::load() {
 	//time to settup a list of turrets to call appon, each with their own list of bullets.... yeah this is gonna be messy
 	//turret limit of 30, can be changed if needed
 	for (int j = 0; j < 30; j++) {
-		//each turret has 2 bullets to call uppon, shouldnt need more than this unless its long range/ rapid fire? (even then just make the bullets faster)
+		//hurray for more inefficiency!
+		std::vector<std::shared_ptr<Entity>> turretBullets;
+		std::vector<std::shared_ptr<BulletMovementComponent>> turretBulletComponents;
+		//each turret has 3 bullets to call uppon, shouldnt need more than this unless its long range/ rapid fire? (even then just make the bullets faster)
 		for (int k = 0; k < 2; k++) {
-			//hurray for more inefficiency!
-			std::vector<std::shared_ptr<Entity>> turretBullets;
-			std::vector<std::shared_ptr<BulletMovementComponent>> turretBulletComponents;
 			auto bullet = make_shared<Entity>();
 			auto s = bullet->addComponent<ShapeComponent>();
 			auto a = bullet->addComponent<BulletMovementComponent>();
 			s->setShape<CircleShape>(8.0f);
 			s->getShape().setFillColor(Color::Cyan);
 			s->getShape().setOrigin(Vector2f(8.0f, 8.0f));
-			a->setSpeed(500);
+			a->setSpeed(500.0f);
 		
 			bullet->setPosition(Vector2f(-50.0f, -50.0f));
 			bullet->setAlive(false);
@@ -124,6 +127,15 @@ void GameScene::load() {
 		
 		
 		}
+		auto turret = make_shared<Entity>();
+		auto x = turret->addComponent<ShapeComponent>();
+		auto b = turret->addComponent<TurretComponent>();
+
+		b->Bulletlist = turretBullets;
+		b->Componentlist = turretBulletComponents;
+		tControl.Turretlist.push_back(turret);
+		tControl.Componentlist.push_back(b);
+		_em.list.push_back(turret);
 	}
 
 
