@@ -1,7 +1,7 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 #include <iostream>
-#include "Player.h"
 #include "ecm.h"
 #include "levelsystem.h"
 #include "system_renderer.h"
@@ -11,6 +11,7 @@
 #include "game.h"
 #include "cmp_turret.h"
 #include "turret_controller.h"
+#include "cmp_player_movement.h"
 
 using namespace sf;
 using namespace std;
@@ -84,6 +85,7 @@ void GameScene::load() {
 	a->move(600, 400);
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
+	a->Tcontrol = tControl;
 
 	a->Tremor = make_shared<Entity>();
 	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
@@ -130,6 +132,11 @@ void GameScene::load() {
 		auto turret = make_shared<Entity>();
 		auto x = turret->addComponent<ShapeComponent>();
 		auto b = turret->addComponent<TurretComponent>();
+		turret->setAlive(false);
+		turret->setVisible(false);
+
+		x->setShape<RectangleShape>(Vector2f(10.0f, 10.0f));
+		x->getShape().setFillColor(Color::Blue);
 
 		b->Bulletlist = turretBullets;
 		b->Componentlist = turretBulletComponents;

@@ -7,27 +7,37 @@
 #include "ecm.h"
 #include "system_renderer.h"
 #include "cmp_sprite.h"
-#include "cmp_actor_movement.h"
 #include "scene.h"
 #include "game.h"
 #include "cmp_turret.h"
+//fixes one issue but makes another?
+#ifndef Turretcontrol
+#define Turretcontrol
+
+using namespace std;
+using namespace sf;
 
 class TurretController {
 
 protected:
 
+	int turretpointer = 0;
 
 public:
-
+	TurretController();
 
 	//i wish i knew a better way to do this right now
 	std::vector<std::shared_ptr<Entity>> Turretlist;
 	std::vector<std::shared_ptr<TurretComponent>> Componentlist;
 
-	void Placeturret();
+	void Placeturret(string type);
 
 
 };
+
+
+
+#endif // !Turretcontrol
 
 
 

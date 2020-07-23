@@ -1,20 +1,24 @@
 // a container for all turret related stats, including price, range, fire rate, damage, and the code to operate said turrets
-
-
+#pragma once
+#include "cmp_actor_movement.h"
 #include <SFML/Graphics.hpp>
 #include <ecm.h>
-#include "cmp_actor_movement.h"
+
+
+using namespace sf;
+using namespace std;
+
 
 class TurretComponent : public Component {
 protected:
 	//higher is better
-	float _range;
-	float _damage;
+	float _range =0;
+	float _damage =0;
 
 	//lower is better
-	float _firerate;
-	float _price;
-	float _cooldown;
+	float _firerate =1;
+	float _price =0;
+	float _cooldown =1;
 
 	float _bulletcounter = 0;
 

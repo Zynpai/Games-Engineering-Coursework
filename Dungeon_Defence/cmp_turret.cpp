@@ -12,9 +12,8 @@
 using namespace std;
 using namespace sf;
 
-TurretComponent::TurretComponent(Entity* p)
-	: Component(p) {
-}
+TurretComponent::TurretComponent(Entity* p)	
+	: Component(p) {}
 
 void TurretComponent::update(double dt) {
 	//increment cooldown, then check if ready to fire
