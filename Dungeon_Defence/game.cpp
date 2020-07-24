@@ -85,7 +85,7 @@ void GameScene::load() {
 	a->move(600, 400);
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
-	a->Tcontrol = tControl;
+	
 
 	a->Tremor = make_shared<Entity>();
 	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
@@ -145,5 +145,5 @@ void GameScene::load() {
 		_em.list.push_back(turret);
 	}
 
-
+	a->Tcontrol = tControl;
 }
