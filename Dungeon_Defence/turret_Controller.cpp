@@ -13,6 +13,7 @@
 using namespace std;
 using namespace sf;
 
+TurretController::TurretController() {}
 
 void TurretController::Placeturret(string type) {
 	//only place a turret if you havent hit the limit yet, can adjust limit later

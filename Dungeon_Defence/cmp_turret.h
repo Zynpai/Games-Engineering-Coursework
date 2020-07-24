@@ -41,7 +41,7 @@ public:
 	void setPrice(float _price);
 
 	void update(double dt) override;
-	
+	void render() override {}
 };
 
 
