@@ -29,6 +29,8 @@ void TurretController::Placeturret(string type) {
 				tcomp->setDamage(1);
 				tcomp->setRate(1);
 				tcomp->setRange(200);
+				tcomp->targetAir = true;
+				tcomp->targetGround = true;
 				//charge player for price of turret
 
 

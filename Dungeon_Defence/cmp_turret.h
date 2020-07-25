@@ -45,6 +45,10 @@ public:
 
 	void update(double dt) override;
 	void render() override {}
+
+
+	bool targetAir = false;
+	bool targetGround = false;
 };
 
 
