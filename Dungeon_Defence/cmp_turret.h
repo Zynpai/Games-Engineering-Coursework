@@ -25,6 +25,8 @@ protected:
 public:
 	TurretComponent(Entity* p);
 
+	std::vector<std::shared_ptr<Entity>> Targetlist;
+
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
 

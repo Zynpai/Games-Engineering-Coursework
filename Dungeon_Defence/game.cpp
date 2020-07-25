@@ -16,6 +16,9 @@
 using namespace sf;
 using namespace std;
 
+//global so i can put it in gamescene's update
+TurretController tControl;
+
 void MenuScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		activeScene = gameScene;
@@ -46,6 +49,8 @@ void GameScene::update(double dt) {
 		activeScene = menuScene;
 	}
 	Scene::update(dt);
+
+	//tControl.update(dt);
 }
 
 void GameScene::render() {
@@ -53,8 +58,9 @@ void GameScene::render() {
 }
 
 void GameScene::load() {
-	TurretController tControl;
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
+	//targetlist stores a smaller list of entities for turrets, to save on processing time (aka zy when you make creeps put them here)
+	std::vector<std::shared_ptr<Entity>> TargetList;
 	std::vector<std::shared_ptr<Entity>> playerBullets;
 	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
 	for (int i = 0; i < 5; i++) {
@@ -101,6 +107,8 @@ void GameScene::load() {
 	c->getShape().setFillColor(Color::Green);
 
 	_em.list.push_back(player);
+	//testing turrets fire capabilites with player first
+	TargetList.push_back(player);
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
@@ -135,11 +143,12 @@ void GameScene::load() {
 		turret->setAlive(false);
 		turret->setVisible(false);
 
-		x->setShape<RectangleShape>(Vector2f(10.0f, 10.0f));
+		x->setShape<RectangleShape>(Vector2f(100.0f, 100.0f));
 		x->getShape().setFillColor(Color::Blue);
 
 		b->Bulletlist = turretBullets;
 		b->Componentlist = turretBulletComponents;
+		b->Targetlist = TargetList;
 		tControl.Turretlist.push_back(turret);
 		tControl.Componentlist.push_back(b);
 		_em.list.push_back(turret);

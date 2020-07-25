@@ -17,31 +17,40 @@ TurretController::TurretController() {}
 
 void TurretController::Placeturret(string type) {
 	//only place a turret if you havent hit the limit yet, can adjust limit later
-	if (turretpointer < 30) {
-		if (type == "basic") {
-			auto turret = Turretlist.at(turretpointer);
-			turret->setPosition(Vector2f(Mouse::getPosition()));
-			turret->setAlive(true);
-			turret->setVisible(true);
+	//if (cooldown = 0) {
+		if (turretpointer < 30) {
+			if (type == "basic") {
+				auto turret = Turretlist.at(turretpointer);
+				turret->setPosition(Vector2f(Mouse::getPosition()));
+				turret->setAlive(true);
+				turret->setVisible(true);
 
-			auto tcomp = Componentlist.at(turretpointer);
-			tcomp->setDamage(1);
-			tcomp->setRate(1);
-			tcomp->setRange(1000);
-			//charge player for price of turret
+				auto tcomp = Componentlist.at(turretpointer);
+				tcomp->setDamage(1);
+				tcomp->setRate(2);
+				tcomp->setRange(10000);
+				//charge player for price of turret
 
 
-			turretpointer++;
+				turretpointer++;
+
+			}
 
 		}
-		
-	}
-	
-	
-
+		//cooldown = 0.1f;
+	//}
 }
 
 
+void TurretController::update(double dt) {
+	if (cooldown > 0) {
+		cooldown = cooldown - dt;
+		if (cooldown < 0) {
+			cooldown = 0.0f;
+		}
+
+	}
+}
 
 
 

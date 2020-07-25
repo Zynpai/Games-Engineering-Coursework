@@ -20,7 +20,8 @@ using namespace sf;
 class TurretController {
 
 protected:
-
+	float cooldown = 0.0f;
+	
 	int turretpointer = 0;
 
 public:
@@ -32,7 +33,7 @@ public:
 
 	void Placeturret(string type);
 
-
+	void update(double dt);
 };
 
 
