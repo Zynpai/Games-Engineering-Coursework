@@ -19,18 +19,31 @@ void TurretComponent::update(double dt) {
 	//increment cooldown, then check if ready to fire
 	if (_cooldown > 0) { _cooldown = _cooldown - dt; }
 	if (_cooldown <= 0) {
-		//rest of logic, including range check and firing bullet
-		for (int i = 0; i < Targetlist.size()-1; i++) {
-			float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
-			//if in range, shoot
-			if (magnitude <= _range) {
-				Componentlist.at(_bulletcounter)->target = *Targetlist.at(i);
-				Bulletlist.at(_bulletcounter)->setAlive(true);
-				Bulletlist.at(_bulletcounter)->setVisible(true);
-				_bulletcounter++;
-				break;
+		if (!firing) {
+			firing = true;
+			//rest of logic, including range check and firing bullet
+			for (int i = 0; i < Targetlist.size(); i++) {
+				float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
+				//if in range, shoot
+				if (magnitude <= _range) {
+					Componentlist.at(_bulletcounter)->target = *Targetlist.at(i);
+					Componentlist.at(_bulletcounter)->targeted = true;
+					Bulletlist.at(_bulletcounter)->setPosition(_parent->getPosition());
+					Bulletlist.at(_bulletcounter)->setAlive(true);
+					Bulletlist.at(_bulletcounter)->setVisible(true);
+					_bulletcounter++;
+					if (_bulletcounter > 2) {
+						_bulletcounter = 0;
+					}
+					_cooldown = _firerate;
+					break;
+				}
 			}
+
+			firing = false;
 		}
+		
+		
 	}
 
 

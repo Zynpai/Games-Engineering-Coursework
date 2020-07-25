@@ -20,7 +20,7 @@ using namespace sf;
 class TurretController {
 
 protected:
-	float cooldown = 0.0f;
+	float cooldown = 0.1f;
 	
 	int turretpointer = 0;
 

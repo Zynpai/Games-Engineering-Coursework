@@ -21,6 +21,7 @@ protected:
 	float _cooldown =1;
 
 	float _bulletcounter = 0;
+	bool firing = false;
 
 public:
 	TurretComponent(Entity* p);

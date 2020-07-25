@@ -13,7 +13,7 @@ public:
 
 	std::shared_ptr<Entity> Wall;
 	std::shared_ptr<Entity> Tremor;
-	TurretController Tcontrol;
+	std::shared_ptr<TurretController> Tcontrol;
 
 	int bulletpointer = 0;
 	float shotCooldown = 0.0f;

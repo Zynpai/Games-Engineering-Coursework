@@ -62,7 +62,7 @@ void PlayerMovementComponent::update(double dt) {
 
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
 		//turret testing hotkey
-		Tcontrol.Placeturret("basic");
+		Tcontrol->Placeturret("basic");
 	}
 
 
