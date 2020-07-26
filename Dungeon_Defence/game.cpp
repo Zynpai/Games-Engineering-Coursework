@@ -12,12 +12,14 @@
 #include "cmp_turret.h"
 #include "turret_controller.h"
 #include "cmp_player_movement.h"
+#include "Wave_controller.h"
 
 using namespace sf;
 using namespace std;
 
 //global so i can put it in gamescene's update
 auto tControl = make_shared<TurretController>();
+auto wControl = make_shared<WaveController>();
 
 void MenuScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
@@ -51,6 +53,7 @@ void GameScene::update(double dt) {
 	Scene::update(dt);
 
 	tControl->update(dt);
+	wControl->update(dt);
 }
 
 void GameScene::render() {
@@ -111,13 +114,13 @@ void GameScene::load() {
 
 	_em.list.push_back(player);
 	//testing turrets fire capabilites with player first
-	TargetList.push_back(player);
+	//TargetList.push_back(player);
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
 
 	//now to make a list of reusable creeps, 20 should suffice
-	for (int l = 0; l < 30; l++) {
+	for (int l = 0; l < 20; l++) {
 		auto creep = make_shared<Entity>();
 		auto s = creep->addComponent<ShapeComponent>();
 		auto m = creep->addComponent<CreepMovementComponent>();
@@ -131,7 +134,8 @@ void GameScene::load() {
 
 		_em.list.push_back(creep);
 		TargetList.push_back(creep);
-
+		wControl->Creeplist.push_back(creep);
+		wControl->Componentlist.push_back(m);
 	}
 
 

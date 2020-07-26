@@ -10,6 +10,7 @@
 #include "scene.h"
 #include "game.h"
 #include "cmp_turret.h"
+#include "levelsystem.h"
 //fixes one issue but makes another?
 #ifndef Turretcontrol
 #define Turretcontrol
