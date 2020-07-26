@@ -13,7 +13,7 @@ Vector2f LevelSystem::_offset(0.0f, 0.0f);
 float LevelSystem::_tileSize(100.0f);
 vector<unique_ptr<RectangleShape>> LevelSystem::_sprites;
 
-map<LevelSystem::TILE, Color> LevelSystem::_colours{ {WALL, Color::White},{END, Color::Red}, {EMPTY, Color::Black}, {WAYPOINT, Color::Green} };
+map<LevelSystem::TILE, Color> LevelSystem::_colours{ {WALL, Color::White},{END, Color::Red}, {EMPTY, Color::Black}, {START, Color::Green} , {WAYPOINT, sf::Color(204, 207, 206)} };
 
 Color LevelSystem::getColor(LevelSystem::TILE t) {
 	auto it = _colours.find(t);

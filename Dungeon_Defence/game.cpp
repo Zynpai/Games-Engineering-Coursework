@@ -30,7 +30,6 @@ void MenuScene::update(double dt) {
 
 void MenuScene::render() {
 	Scene::render();
-	ls::Render(Renderer::getWindow());
 }
 
 void MenuScene::load() {
@@ -43,7 +42,6 @@ void MenuScene::load() {
 	s->getShape().setOrigin(Vector2f(12.f, 12.f));
 
 	_em.list.push_back(menuSquare);
-	ls::loadLevelFile("res/levels/maze_2.txt", 25.0f);
 }
 
 void GameScene::update(double dt) {
@@ -162,5 +160,5 @@ void GameScene::load() {
 
 	a->Tcontrol = tControl;
 
-	ls::loadLevelFile("res/levels/maze_2.txt", 25.0f);
+	ls::loadLevelFile("res/levels/maze_3.txt", 64.0f);
 }
