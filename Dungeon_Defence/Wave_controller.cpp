@@ -25,7 +25,7 @@ void WaveController::update(double dt) {
 		if (spacing > 0) { spacing = spacing - dt; }
 		if (spacing <= 0) {
 
-			Creeplist.at(creepPointer)->setPosition(ls::getTilePosition(ls::findTiles(ls::END)[1]));
+			Creeplist.at(creepPointer)->setPosition(ls::getTilePosition(Vector2ul(ls::findTiles(ls::END)[1])));
 			Creeplist.at(creepPointer)->setAlive(true);
 			Creeplist.at(creepPointer)->setVisible(true);
 

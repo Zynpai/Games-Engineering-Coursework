@@ -92,7 +92,7 @@ void GameScene::load() {
 	s->setShape<CircleShape>(12.f);
 	s->getShape().setFillColor(Color::Yellow);
 	s->getShape().setOrigin(Vector2f(6.f, 6.f));
-	a->move(600, 400);
+	player->setPosition(Vector2f(600, 400));
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
 	

@@ -26,7 +26,11 @@ bool ActorMovementComponent::validMove(const sf::Vector2f& pos) {
 void ActorMovementComponent::move(const sf::Vector2f& p) {
 	auto pp = _parent->getPosition() + p;
 	//if (validMove(pp)) {
+<<<<<<< HEAD
 	//	_parent->setPosition(pp);
+=======
+		_parent->setPosition(pp);
+>>>>>>> 6f1b6d480c7f35ccf8f2645efcc55584eac423fb
 	//}
 }
 

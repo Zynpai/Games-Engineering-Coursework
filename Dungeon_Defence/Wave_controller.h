@@ -20,7 +20,7 @@ class WaveController {
 
 protected:
 	//60 seconds to learn controls, and place towers before 1st wave
-	float cooldown = 60.0f;
+	float cooldown = 6.0f;
 	//time between each creep spawn, can be adjusted to make waves denser or sparser
 	float spacing = 0.5f;
 

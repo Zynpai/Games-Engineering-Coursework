@@ -15,7 +15,7 @@ public:
 	static void loadLevelFile(const std::string&, float tileSize=100.0f);
 	static void Render(sf::RenderWindow &window); 
 	static sf::Color getColor(TILE t);
-	static std::vector<sf::Vector2ul> findTiles(TILE t);
+	static std::vector<sf::Vector2f> findTiles(TILE t);
 	static void setColor(TILE t, sf::Color c);
 
 	static TILE getTile(sf::Vector2ul);
