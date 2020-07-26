@@ -13,7 +13,7 @@ Vector2f LevelSystem::_offset(0.0f, 0.0f);
 float LevelSystem::_tileSize(100.0f);
 vector<unique_ptr<RectangleShape>> LevelSystem::_sprites;
 
-map<LevelSystem::TILE, Color> LevelSystem::_colours{ {WALL, Color::White},{END, Color::Red}, {EMPTY, Color::Black}, {START, Color::Green} , {WAYPOINT, sf::Color(204, 207, 206)} };
+map<LevelSystem::TILE, Color> LevelSystem::_colours{ {WALL, Color::White},{END, Color::Red}, {EMPTY, Color::Black}, {START, Color::Green} , {ENEMY, Color::Blue}, {WAYPOINT, sf::Color(204, 207, 206)} };
 
 Color LevelSystem::getColor(LevelSystem::TILE t) {
 	auto it = _colours.find(t);
@@ -61,7 +61,7 @@ void LevelSystem::loadLevelFile(const string& path, float tileSize){
 		case ' ':
 			temp_tiles.push_back(EMPTY);
 			break;
-		case '+':
+		case 'u':
 			temp_tiles.push_back(WAYPOINT);
 			break;
 		case 'n':
@@ -77,9 +77,9 @@ void LevelSystem::loadLevelFile(const string& path, float tileSize){
 			cout << c << endl;
 		}
 	}
-	if (temp_tiles.size() != (w*h)) {
-		throw string("Can't parse level file") + path;
-	}
+	//if (temp_tiles.size() != (w*h)) {
+	//	throw string("Can't parse level file") + path;
+	//}
 	_tiles = make_unique<TILE[]>(w*h);
 	_width = w;
 	_height = h;

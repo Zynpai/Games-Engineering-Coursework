@@ -160,5 +160,5 @@ void GameScene::load() {
 
 	a->Tcontrol = tControl;
 
-	ls::loadLevelFile("res/levels/maze_3.txt", 64.0f);
+	ls::loadLevelFile("res/levels/maze_3.txt", 80.0f);
 }
