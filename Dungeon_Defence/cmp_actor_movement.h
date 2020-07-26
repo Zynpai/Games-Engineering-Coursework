@@ -42,6 +42,18 @@ public:
 //for enemy use
 class CreepMovementComponent : public ActorMovementComponent {
 public:
+	float health;
+	//if true, airborne, if false, grounded
+	bool flying;
+	//money obtained on kill
+	int reward;
+
+	//some special properties?
+	//float regenAmount : every second heal health by this? (would also require a maxhealth var)
+	//float armor : reduce incomming damage by amount listed? (maybe have a min damage so that any tower can still hurt)
+	//bool/float acceleration : slowly speed up while going through the map, by a set amount or custom amount?
+
+
 	CreepMovementComponent(Entity* p);
 	void update(double dt) override;
 };

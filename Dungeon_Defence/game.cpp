@@ -115,6 +115,28 @@ void GameScene::load() {
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
+
+	//now to make a list of reusable creeps, 20 should suffice
+	for (int l = 0; l < 30; l++) {
+		auto creep = make_shared<Entity>();
+		auto s = creep->addComponent<ShapeComponent>();
+		auto m = creep->addComponent<CreepMovementComponent>();
+
+		s->setShape<CircleShape>(12.0f);
+		s->getShape().setOrigin(Vector2f(6.0f,6.0f));
+		s->getShape().setFillColor(Color::Magenta);
+
+		creep->setAlive(false);
+		creep->setVisible(false);
+
+		_em.list.push_back(creep);
+		TargetList.push_back(creep);
+
+	}
+
+
+
+
 	//time to settup a list of turrets to call appon, each with their own list of bullets.... yeah this is gonna be messy
 	//turret limit of 30, can be changed if needed
 	for (int j = 0; j < 30; j++) {
