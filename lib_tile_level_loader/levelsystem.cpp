@@ -23,10 +23,8 @@ Color LevelSystem::getColor(LevelSystem::TILE t) {
 	return _colours[t];
 }
 
-void LevelSystem::setColor(LevelSystem::TILE t, Color c) {
-
-	_colours[t] = c;
-
+void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
+	_colours.insert(std::pair<LevelSystem::TILE, sf::Color>(t, c));
 }
 
 void LevelSystem::loadLevelFile(const string& path, float tileSize){
@@ -90,6 +88,8 @@ void LevelSystem::loadLevelFile(const string& path, float tileSize){
 	buildSprites();
 }
 
+
+
 size_t LevelSystem::getHeight() {
 	return _height;
 }
@@ -114,6 +114,22 @@ LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 		throw string("Tile out of range ");
 	}
 	return getTile(Vector2ul((v - _offset) / (_tileSize)));
+
+
+}
+
+std::vector<sf::Vector2f> LevelSystem::findTiles(TILE t)
+{
+	vector<Vector2f> found;
+	for (size_t y = 0; y < LevelSystem::getHeight(); ++y) {
+		for (size_t x = 0; x < LevelSystem::getWidth(); ++x) {
+			if (getTile({ x, y }) == t) {
+				found.push_back((getTilePosition(Vector2ul{ x, y }) + Vector2f(_tileSize / 2.0f, _tileSize / 2.0f)));
+			}
+		}
+	}
+
+	return found;
 }
 
 void LevelSystem::buildSprites() {
