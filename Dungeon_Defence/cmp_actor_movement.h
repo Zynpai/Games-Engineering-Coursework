@@ -21,6 +21,9 @@ public:
 	void move(const sf::Vector2f&);
 	void move(float x, float y);
 
+	void Uncheckedmove(const sf::Vector2f&);
+	void Uncheckedmove(float x, float y);
+
 	void render() override {}
 	void update(double dt) override;
 };

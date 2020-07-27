@@ -34,6 +34,20 @@ void ActorMovementComponent::move(const sf::Vector2f& p) {
 void ActorMovementComponent::move(float x, float y) {
 	move(Vector2f(x, y));
 }
+
+void ActorMovementComponent::Uncheckedmove(const sf::Vector2f& p) {
+	auto pp = _parent->getPosition() + p;
+
+	_parent->setPosition(pp);
+	
+}
+
+
+void ActorMovementComponent::Uncheckedmove(float x, float y) {
+	move(Vector2f(x, y));
+}
+
+
 float ActorMovementComponent::getSpeed() const { return _speed; }
 void ActorMovementComponent::setSpeed(float speed) { _speed = speed; }
 
