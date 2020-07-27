@@ -57,7 +57,7 @@ void GameScene::update(double dt) {
 }
 
 void GameScene::render() {
-	ls::Render(Renderer::getWindow());
+	//ls::Render(Renderer::getWindow());
 	Scene::render();
 }
 

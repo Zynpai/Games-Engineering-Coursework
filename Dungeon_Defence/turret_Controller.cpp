@@ -19,32 +19,44 @@ TurretController::TurretController() {}
 void TurretController::Placeturret(string type) {
 	//only place a turret if you havent hit the limit yet, can adjust limit later
 	if (cooldown == 0.0f) {
-		if (turretpointer < 30) {
-			if (type == "basic") {
-				auto turret = Turretlist.at(turretpointer);
-				if (ls::getTileAt(Vector2f(Mouse::getPosition())) == ls::ENEMY) {
-					//center turret on tile
-					int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
-					int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
-					Vector2f Tile = Vector2f(xcomponent, ycomponent);
-					turret->setPosition(Tile);
-					turret->setAlive(true);
-					turret->setVisible(true);
-
-					auto tcomp = Componentlist.at(turretpointer);
-					tcomp->setDamage(1);
-					tcomp->setRate(1);
-					tcomp->setRange(200);
-					tcomp->targetAir = true;
-					tcomp->targetGround = true;
-					//charge player for price of turret
-
-
-					turretpointer++;
+		if (ls::getTileAt(Vector2f(Mouse::getPosition())) == ls::ENEMY) {
+			//center turret on tile
+			int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
+			int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
+			Vector2f Tile = Vector2f(xcomponent, ycomponent);
+			bool valid = true;
+			for (int i = 0; i < Occupied.size(); i++) {
+				if (Occupied.at(i) == Tile) {
+					valid = false;
 				}
-				
-
 			}
+			if (valid) {
+				Occupied.push_back(Tile);
+				if (turretpointer < 30) {
+					if (type == "basic") {
+						auto turret = Turretlist.at(turretpointer);
+
+
+						turret->setPosition(Tile);
+						turret->setAlive(true);
+						turret->setVisible(true);
+
+						auto tcomp = Componentlist.at(turretpointer);
+						tcomp->setDamage(1);
+						tcomp->setRate(1);
+						tcomp->setRange(200);
+						tcomp->targetAir = true;
+						tcomp->targetGround = true;
+						//charge player for price of turret
+
+
+						turretpointer++;
+					}
+
+
+				}
+			}
+			
 
 		}
 		cooldown = 0.2f;

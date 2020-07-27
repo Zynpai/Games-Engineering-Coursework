@@ -31,6 +31,7 @@ public:
 	//i wish i knew a better way to do this right now
 	std::vector<std::shared_ptr<Entity>> Turretlist;
 	std::vector<std::shared_ptr<TurretComponent>> Componentlist;
+	std::vector<Vector2f> Occupied;
 
 	void Placeturret(string type);
 
