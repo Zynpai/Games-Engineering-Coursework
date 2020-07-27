@@ -13,6 +13,7 @@
 #include "turret_controller.h"
 #include "cmp_player_movement.h"
 #include "Wave_controller.h"
+#include "GUI.h"
 
 using namespace sf;
 using namespace std;
@@ -35,6 +36,11 @@ void MenuScene::render() {
 }
 
 void MenuScene::load() {
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+		//it broke
+		throw string("Could not load font file :(");
+	}
 	//adding a square so menu isnt just a black void
 	auto menuSquare = make_shared<Entity>();
 	auto s = menuSquare->addComponent<ShapeComponent>();
@@ -62,6 +68,11 @@ void GameScene::render() {
 }
 
 void GameScene::load() {
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+		//it broke
+		throw string("Could not load font file :(");
+	}
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
 	for (int l = 0; l < 20; l++) {

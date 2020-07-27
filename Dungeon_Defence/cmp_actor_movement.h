@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <ecm.h>
-
+#include "GUI.h"
 
 
 using namespace std;

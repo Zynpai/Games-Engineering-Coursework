@@ -16,7 +16,6 @@ protected:
 
 	//lower is better
 	float _firerate =1;
-	float _price =0;
 	float _cooldown =1;
 
 	float _bulletcounter = 0;
@@ -38,9 +37,6 @@ public:
 
 	float getRate() const;
 	void setRate(float _firerate);
-
-	float getPrice() const;
-	void setPrice(float _price);
 
 	void update(double dt) override;
 	void render() override {}

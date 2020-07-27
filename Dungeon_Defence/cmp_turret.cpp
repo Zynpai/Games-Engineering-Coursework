@@ -80,11 +80,3 @@ void TurretComponent::setRate(float rate) {
 	_firerate = rate;
 	_cooldown = rate;
 }
-
-float TurretComponent::getPrice() const { return _price; }
-void TurretComponent::setPrice(float price) { _price = price; }
-
-
-
-
-
