@@ -43,13 +43,18 @@ BulletMovementComponent::BulletMovementComponent(Entity* p)
 
 void BulletMovementComponent::update(double dt) {
 	if (targeted) {
-		float magnitude = sqrt(pow(target.getPosition().x - _parent->getPosition().x, 2) + pow(target.getPosition().y - _parent->getPosition().y, 2));
-		Vector2f direction = (target.getPosition() - _parent->getPosition()) / (magnitude);
+		float magnitude = sqrt(pow(target->getPosition().x - _parent->getPosition().x, 2) + pow(target->getPosition().y - _parent->getPosition().y, 2));
+		Vector2f direction = (target->getPosition() - _parent->getPosition()) / (magnitude);
 		move(direction*_speed*float(dt));
 		//if the distance between the bullet and target is low enough, terminate the bullet and damage the target
 		//pow and sqrt to get a positive distance, actual distance number is placeholder
-		if (sqrt(pow(target.getPosition().x - _parent->getPosition().x,2)) <= 10 && sqrt(pow(target.getPosition().y - _parent->getPosition().y, 2)) <=10) {
+		if (sqrt(pow(target->getPosition().x - _parent->getPosition().x,2)) <= 10 && sqrt(pow(target->getPosition().y - _parent->getPosition().y, 2)) <=10) {
 			//insert damage scripts here
+			targetComponent->health = targetComponent->health - damage;
+			if (targetComponent->health <=0) {
+				target->setAlive(false);
+				target->setVisible(false);
+			}
 			_parent->setAlive(false);
 			_parent->setVisible(false);
 		}

@@ -4,7 +4,7 @@
 
 
 
-
+using namespace std;
 
 class ActorMovementComponent : public Component {
 protected:
@@ -25,20 +25,6 @@ public:
 	void update(double dt) override;
 };
 
-class BulletMovementComponent : public ActorMovementComponent {
-public:
-	BulletMovementComponent(Entity* p);
-	Entity target;
-	//true if going towards an entity, false if going in a line, default false
-	bool targeted = false;
-	sf::Vector2f VecTarget;
-	float damage;
-	void update(double dt) override;
-};
-
-
-
-
 //for enemy use
 class CreepMovementComponent : public ActorMovementComponent {
 public:
@@ -57,3 +43,19 @@ public:
 	CreepMovementComponent(Entity* p);
 	void update(double dt) override;
 };
+
+class BulletMovementComponent : public ActorMovementComponent {
+public:
+	BulletMovementComponent(Entity* p);
+	shared_ptr<Entity> target;
+	shared_ptr<CreepMovementComponent> targetComponent;
+	//true if going towards an entity, false if going in a line, default false
+	bool targeted = false;
+	sf::Vector2f VecTarget;
+	float damage;
+	void update(double dt) override;
+};
+
+
+
+

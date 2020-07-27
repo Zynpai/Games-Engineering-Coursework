@@ -25,20 +25,26 @@ void TurretComponent::update(double dt) {
 			//if the turret can shoot both air and ground, just search list
 			if(targetAir && targetGround){
 				for (int i = 0; i < Targetlist.size(); i++) {
-					float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
-					//if in range, shoot
-					if (magnitude <= _range) {
-						Componentlist.at(_bulletcounter)->target = *Targetlist.at(i);
-						Componentlist.at(_bulletcounter)->targeted = true;
-						Bulletlist.at(_bulletcounter)->setPosition(_parent->getPosition());
-						Bulletlist.at(_bulletcounter)->setAlive(true);
-						Bulletlist.at(_bulletcounter)->setVisible(true);
-						_bulletcounter++;
-						if (_bulletcounter > 2) {
-							_bulletcounter = 0;
+					//dont shoot at dead enemeies
+					if (Targetlist.at(i)->isAlive()) {
+						float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
+						//if in range, shoot
+						if (magnitude <= _range) {
+							Componentlist.at(_bulletcounter)->target = Targetlist.at(i);
+							Componentlist.at(_bulletcounter)->targetComponent = creepComponentlist.at(i);
+							Componentlist.at(_bulletcounter)->targeted = true;
+							Bulletlist.at(_bulletcounter)->setPosition(_parent->getPosition());
+							Bulletlist.at(_bulletcounter)->setAlive(true);
+							Bulletlist.at(_bulletcounter)->setVisible(true);
+							_bulletcounter++;
+							if (_bulletcounter > 2) {
+								_bulletcounter = 0;
+							}
+							_cooldown = _firerate;
+							break;
 						}
-						_cooldown = _firerate;
-						break;
+						
+					
 					}
 				}
 			}
@@ -63,8 +69,11 @@ void TurretComponent::update(double dt) {
 float TurretComponent::getRange() const { return _range; }
 void TurretComponent::setRange(float range) { _range = range; }
 
-float TurretComponent::getDamage() const { return _damage; }
-void TurretComponent::setDamage(float damage) { _damage = damage; }
+void TurretComponent::setDamage(float damage) {
+	for (int i = 0; i < Bulletlist.size(); i++) {
+		Componentlist.at(i)->damage = damage;
+	}
+}
 
 float TurretComponent::getRate() const { return _firerate; }
 void TurretComponent::setRate(float rate) { 

@@ -13,7 +13,6 @@ class TurretComponent : public Component {
 protected:
 	//higher is better
 	float _range =0;
-	float _damage =0;
 
 	//lower is better
 	float _firerate =1;
@@ -27,6 +26,7 @@ public:
 	TurretComponent(Entity* p);
 
 	std::vector<std::shared_ptr<Entity>> Targetlist;
+	std::vector<std::shared_ptr<CreepMovementComponent>> creepComponentlist;
 
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
@@ -34,7 +34,6 @@ public:
 	float getRange() const;
 	void setRange(float _range);
 
-	float getDamage() const;
 	void setDamage(float _damage);
 
 	float getRate() const;
