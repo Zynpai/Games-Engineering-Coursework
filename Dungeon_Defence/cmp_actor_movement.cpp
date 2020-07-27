@@ -83,6 +83,7 @@ CreepMovementComponent::CreepMovementComponent(Entity* p)
 	: ActorMovementComponent(p) {}
 
 void CreepMovementComponent::update(double dt) {
-
+	//just some code to make sure spacing works, delete when real code is used
+	move(0, 1.5);
 }
 

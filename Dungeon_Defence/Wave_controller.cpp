@@ -25,10 +25,10 @@ void WaveController::update(double dt) {
 		if (spacing > 0) { spacing = spacing - dt; }
 		if (spacing <= 0) {
 
-			Creeplist.at(creepPointer)->setPosition(ls::getTilePosition(Vector2ul(ls::findTiles(ls::END)[1])));
+			
 			Creeplist.at(creepPointer)->setAlive(true);
 			Creeplist.at(creepPointer)->setVisible(true);
-
+			Creeplist.at(creepPointer)->setPosition(ls::findTiles(ls::END)[1]);
 			//basic health scale, can be changed later
 			Componentlist.at(creepPointer)->health = 10 * waveNo;
 			Componentlist.at(creepPointer)->reward = 1 * waveNo;
@@ -37,6 +37,7 @@ void WaveController::update(double dt) {
 				Componentlist.at(creepPointer)->flying = true;
 			}
 			creepPointer = creepPointer + 1;
+			spacing = 0.5f;
 		}
 
 
