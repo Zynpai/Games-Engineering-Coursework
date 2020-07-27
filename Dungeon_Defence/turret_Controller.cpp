@@ -5,6 +5,7 @@
 #include <iostream>
 #include "ecm.h"
 #include "system_renderer.h"
+#include "levelsystem.h"
 #include "cmp_sprite.h"
 #include "cmp_actor_movement.h"
 #include "cmp_turret.h"
@@ -21,20 +22,27 @@ void TurretController::Placeturret(string type) {
 		if (turretpointer < 30) {
 			if (type == "basic") {
 				auto turret = Turretlist.at(turretpointer);
-				turret->setPosition(Vector2f(Mouse::getPosition()));
-				turret->setAlive(true);
-				turret->setVisible(true);
+				if (ls::getTileAt(Vector2f(Mouse::getPosition())) == ls::ENEMY) {
+					//center turret on tile
+					int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
+					int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
+					Vector2f Tile = Vector2f(xcomponent, ycomponent);
+					turret->setPosition(Tile);
+					turret->setAlive(true);
+					turret->setVisible(true);
 
-				auto tcomp = Componentlist.at(turretpointer);
-				tcomp->setDamage(1);
-				tcomp->setRate(1);
-				tcomp->setRange(200);
-				tcomp->targetAir = true;
-				tcomp->targetGround = true;
-				//charge player for price of turret
+					auto tcomp = Componentlist.at(turretpointer);
+					tcomp->setDamage(1);
+					tcomp->setRate(1);
+					tcomp->setRange(200);
+					tcomp->targetAir = true;
+					tcomp->targetGround = true;
+					//charge player for price of turret
 
 
-				turretpointer++;
+					turretpointer++;
+				}
+				
 
 			}
 
