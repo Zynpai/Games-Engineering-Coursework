@@ -42,7 +42,7 @@ void TurretController::Placeturret(string type) {
 						turret->setVisible(true);
 
 						auto tcomp = Componentlist.at(turretpointer);
-						tcomp->setDamage(1);
+						tcomp->setDamage(5);
 						tcomp->setRate(1);
 						tcomp->setRange(200);
 						tcomp->targetAir = true;

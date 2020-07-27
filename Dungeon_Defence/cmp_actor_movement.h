@@ -50,8 +50,12 @@ public:
 class BulletMovementComponent : public ActorMovementComponent {
 public:
 	BulletMovementComponent(Entity* p);
+	//for use with targeted bullets
 	shared_ptr<Entity> target;
 	shared_ptr<CreepMovementComponent> targetComponent;
+	//for use with untargeted bullets
+	vector<shared_ptr<Entity>> Creeplist;
+	vector<shared_ptr<CreepMovementComponent>> CreepComponentlist;
 	//true if going towards an entity, false if going in a line, default false
 	bool targeted = false;
 	sf::Vector2f VecTarget;

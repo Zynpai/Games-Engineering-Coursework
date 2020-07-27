@@ -75,7 +75,7 @@ void BulletMovementComponent::update(double dt) {
 	}
 	else {
 		
-		move(VecTarget*_speed*float(dt));
+		Uncheckedmove(VecTarget*_speed*float(dt));
 		//if out of bounds of screen, delete
 		VideoMode desktop = VideoMode::getDesktopMode();
 
@@ -87,7 +87,23 @@ void BulletMovementComponent::update(double dt) {
 			_parent->setVisible(false);
 		}
 		//if it collides with an enemy, do damage and disapear
+		for (int i = 0; i < Creeplist.size(); i++) {
+			if (Creeplist.at(i)->isAlive()) {
+				if (sqrt(pow(Creeplist.at(i)->getPosition().x - _parent->getPosition().x, 2)) <= 20 && sqrt(pow(Creeplist.at(i)->getPosition().y - _parent->getPosition().y, 2)) <= 20) {
 
+					CreepComponentlist.at(i)->health = CreepComponentlist.at(i)->health - damage;
+					if (CreepComponentlist.at(i)->health <= 0) {
+						Creeplist.at(i)->setAlive(false);
+						Creeplist.at(i)->setVisible(false);
+					}
+					_parent->setAlive(false);
+					_parent->setVisible(false);
+
+				}
+			}
+			
+
+		}
 	}
 	
 }

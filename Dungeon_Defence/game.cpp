@@ -62,9 +62,29 @@ void GameScene::render() {
 }
 
 void GameScene::load() {
+	std::vector<std::shared_ptr<Entity>> TargetList;
+	//now to make a list of reusable creeps, 20 should suffice
+	for (int l = 0; l < 20; l++) {
+		auto creep = make_shared<Entity>();
+		auto s = creep->addComponent<ShapeComponent>();
+		auto m = creep->addComponent<CreepMovementComponent>();
+
+		s->setShape<CircleShape>(12.0f);
+		s->getShape().setOrigin(Vector2f(6.0f, 6.0f));
+		s->getShape().setFillColor(Color::Magenta);
+
+		creep->setAlive(false);
+		creep->setVisible(false);
+
+		_em.list.push_back(creep);
+		TargetList.push_back(creep);
+		wControl->Creeplist.push_back(creep);
+		wControl->Componentlist.push_back(m);
+
+	}
+
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
 	//targetlist stores a smaller list of entities for turrets, to save on processing time (aka zy when you make creeps put them here)
-	std::vector<std::shared_ptr<Entity>> TargetList;
 	std::vector<std::shared_ptr<Entity>> playerBullets;
 	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
 	for (int i = 0; i < 5; i++) {
@@ -75,6 +95,8 @@ void GameScene::load() {
 		s->getShape().setFillColor(Color::Blue);
 		s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 		a->setSpeed(300);
+		a->Creeplist = wControl->Creeplist;
+		a->CreepComponentlist = wControl->Componentlist;
 		//temporary damage val, can be changed for balance later
 		a->damage = 20;
 		bullet->setPosition(Vector2f(-50.0f,-50.0f));
@@ -119,25 +141,7 @@ void GameScene::load() {
 	_em.list.push_back(a->Wall);
 
 
-	//now to make a list of reusable creeps, 20 should suffice
-	for (int l = 0; l < 20; l++) {
-		auto creep = make_shared<Entity>();
-		auto s = creep->addComponent<ShapeComponent>();
-		auto m = creep->addComponent<CreepMovementComponent>();
-
-		s->setShape<CircleShape>(12.0f);
-		s->getShape().setOrigin(Vector2f(6.0f,6.0f));
-		s->getShape().setFillColor(Color::Magenta);
-
-		creep->setAlive(false);
-		creep->setVisible(false);
-
-		_em.list.push_back(creep);
-		TargetList.push_back(creep);
-		wControl->Creeplist.push_back(creep);
-		wControl->Componentlist.push_back(m);
-		
-	}
+	
 
 
 
