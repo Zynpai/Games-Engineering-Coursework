@@ -19,6 +19,7 @@ public:
 
 	void setMoney(int money);
 	int getMoney();
+	float Buttoncooldown = 0.1;
 	////used for button functionality
 	//shared_ptr<PlayerMovementComponent> player;
 

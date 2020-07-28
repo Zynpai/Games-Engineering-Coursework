@@ -110,7 +110,7 @@ void TurretController::Placeturret(string type) {
 			
 
 		}
-		cooldown = 0.2f;
+		cooldown = 0.05f;
 	}
 }
 

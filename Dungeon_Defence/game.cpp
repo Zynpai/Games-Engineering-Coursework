@@ -73,7 +73,8 @@ void GameScene::load() {
 	auto sh = Basicbutton->addComponent<ShapeComponent>();
 	sh->setShape<RectangleShape>(Vector2f(200,100));
 	sh->getShape().setFillColor(Color::Black);
-	Basicbutton->setPosition(Vector2f(1630, 150));
+	sh->getShape().setOrigin(Vector2f(100,50));
+	Basicbutton->setPosition(Vector2f(1730, 200));
 	_em.list.push_back(Basicbutton);
 	gameGUI->Basicbutton = Basicbutton;
 
@@ -81,7 +82,8 @@ void GameScene::load() {
 	auto sh2 = Fireballbutton->addComponent<ShapeComponent>();
 	sh2->setShape<RectangleShape>(Vector2f(200, 100));
 	sh2->getShape().setFillColor(Color::Black);
-	Fireballbutton->setPosition(Vector2f(1630, 300));
+	sh2->getShape().setOrigin(Vector2f(100, 50));
+	Fireballbutton->setPosition(Vector2f(1730, 350));
 	_em.list.push_back(Fireballbutton);
 	gameGUI->Fireballbutton = Fireballbutton;
 
@@ -89,7 +91,8 @@ void GameScene::load() {
 	auto sh3 = Lightningbutton->addComponent<ShapeComponent>();
 	sh3->setShape<RectangleShape>(Vector2f(200, 100));
 	sh3->getShape().setFillColor(Color::Black);
-	Lightningbutton->setPosition(Vector2f(1630, 450));
+	sh3->getShape().setOrigin(Vector2f(100, 50));
+	Lightningbutton->setPosition(Vector2f(1730, 500));
 	_em.list.push_back(Lightningbutton);
 	gameGUI->Lightningbutton = Lightningbutton;
 
@@ -97,6 +100,7 @@ void GameScene::load() {
 	auto Ghost = make_shared<Entity>();
 	auto sh4 = Ghost->addComponent<ShapeComponent>();
 	sh4->setShape<RectangleShape>(Vector2f(50, 50));
+	sh4->getShape().setOrigin(Vector2f(25, 25));
 	_em.list.push_back(Ghost);
 	Ghost->setAlive(false);
 	Ghost->setVisible(false);
