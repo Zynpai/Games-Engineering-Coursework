@@ -13,7 +13,6 @@
 #include "turret_controller.h"
 #include "cmp_player_movement.h"
 #include "Wave_controller.h"
-#include "GUI.h"
 
 using namespace sf;
 using namespace std;
@@ -21,7 +20,8 @@ using namespace std;
 //global so i can put it in gamescene's update
 auto tControl = make_shared<TurretController>();
 auto wControl = make_shared<WaveController>();
-auto gameGUI = make_shared<GUI>();
+
+
 
 void MenuScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
@@ -56,88 +56,26 @@ void GameScene::update(double dt) {
 
 	tControl->update(dt);
 	wControl->update(dt);
-	gameGUI->update(dt);
 }
 
 void GameScene::render() {
-	ls::Render(Renderer::getWindow());
+	//ls::Render(Renderer::getWindow());
 	Scene::render();
-	gameGUI->Render(Renderer::getWindow());
+	Renderer::getWindow().draw(sMap);
 }
 
 void GameScene::load() {
-	tControl->gui = gameGUI;
-	wControl->gui = gameGUI;
-	//initialise buttons and ghost for gui
-	auto Basicbutton = make_shared<Entity>();
-	auto sh = Basicbutton->addComponent<ShapeComponent>();
-	sh->setShape<RectangleShape>(Vector2f(200,100));
-	sh->getShape().setFillColor(Color::Black);
-	sh->getShape().setOrigin(Vector2f(100,50));
-	Basicbutton->setPosition(Vector2f(1730, 200));
-	_em.list.push_back(Basicbutton);
-	gameGUI->Basicbutton = Basicbutton;
+	//sf::Texture map;
+	map.loadFromFile("res/Map2.png");
 
-	auto Fireballbutton = make_shared<Entity>();
-	auto sh2 = Fireballbutton->addComponent<ShapeComponent>();
-	sh2->setShape<RectangleShape>(Vector2f(200, 100));
-	sh2->getShape().setFillColor(Color::Black);
-	sh2->getShape().setOrigin(Vector2f(100, 50));
-	Fireballbutton->setPosition(Vector2f(1730, 350));
-	_em.list.push_back(Fireballbutton);
-	gameGUI->Fireballbutton = Fireballbutton;
-
-	auto Lightningbutton = make_shared<Entity>();
-	auto sh3 = Lightningbutton->addComponent<ShapeComponent>();
-	sh3->setShape<RectangleShape>(Vector2f(200, 100));
-	sh3->getShape().setFillColor(Color::Black);
-	sh3->getShape().setOrigin(Vector2f(100, 50));
-	Lightningbutton->setPosition(Vector2f(1730, 500));
-	_em.list.push_back(Lightningbutton);
-	gameGUI->Lightningbutton = Lightningbutton;
-
-	//ghost is the only one that should keep a shape, sprites would be preffered for buttons
-	auto Ghost = make_shared<Entity>();
-	auto sh4 = Ghost->addComponent<ShapeComponent>();
-	sh4->setShape<RectangleShape>(Vector2f(50, 50));
-	sh4->getShape().setOrigin(Vector2f(25, 25));
-	_em.list.push_back(Ghost);
-	Ghost->setAlive(false);
-	Ghost->setVisible(false);
-	gameGUI->Ghost = Ghost;
-
-	std::vector<std::shared_ptr<Entity>> TargetList;
-	//now to make a list of reusable creeps, 20 should suffice
-	for (int l = 0; l < 20; l++) {
-		auto creep = make_shared<Entity>();
-		auto s = creep->addComponent<ShapeComponent>();
-		auto m = creep->addComponent<CreepMovementComponent>();
-
-		s->setShape<CircleShape>(20.0f);
-		s->getShape().setFillColor(Color::Magenta);
-		s->getShape().setOrigin(Vector2f(10.0f,10.0f));
-		//Texture blankTex;
-		//if (!blankTex.create(32, 32)) {
-			//error
-		//	throw string("why did this fail?");
-		//}
-		//s->sprite->setTexture(blankTex);
-		
-
-		creep->setAlive(false);
-		creep->setVisible(false);
-		m->gui = gameGUI;
-
-		_em.list.push_back(creep);
-		TargetList.push_back(creep);
-		wControl->Creeplist.push_back(creep);
-		wControl->Componentlist.push_back(m);
-		//wControl->spriteList.push_back(s);
-
-	}
+	// Create a sprite
+	//sf::Sprite sprite;
+	sMap.setTexture(map);
+	sMap.setPosition(0, 0);
 
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
-	//targetlist stores a smaller list of entities for turrets, to save on processing time
+	//targetlist stores a smaller list of entities for turrets, to save on processing time (aka zy when you make creeps put them here)
+	std::vector<std::shared_ptr<Entity>> TargetList;
 	std::vector<std::shared_ptr<Entity>> playerBullets;
 	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
 	for (int i = 0; i < 5; i++) {
@@ -145,12 +83,9 @@ void GameScene::load() {
 		auto s = bullet->addComponent<ShapeComponent>();
 		auto a = bullet->addComponent<BulletMovementComponent>();
 		s->setShape<CircleShape>(8.0f);
-		s->getShape().setFillColor(Color::Cyan);
+		s->getShape().setFillColor(Color::Blue);
 		s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 		a->setSpeed(300);
-		a->gui = gameGUI;
-		a->Creeplist = wControl->Creeplist;
-		a->CreepComponentlist = wControl->Componentlist;
 		//temporary damage val, can be changed for balance later
 		a->damage = 20;
 		bullet->setPosition(Vector2f(-50.0f,-50.0f));
@@ -189,11 +124,30 @@ void GameScene::load() {
 	c->getShape().setFillColor(Color::Green);
 
 	_em.list.push_back(player);
+	//testing turrets fire capabilites with player first
+	//TargetList.push_back(player);
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
 
-	
+	//now to make a list of reusable creeps, 20 should suffice
+	for (int l = 0; l < 20; l++) {
+		auto creep = make_shared<Entity>();
+		auto s = creep->addComponent<ShapeComponent>();
+		auto m = creep->addComponent<CreepMovementComponent>();
+
+		s->setShape<CircleShape>(12.0f);
+		s->getShape().setOrigin(Vector2f(6.0f,6.0f));
+		s->getShape().setFillColor(Color::Magenta);
+
+		creep->setAlive(false);
+		creep->setVisible(false);
+
+		_em.list.push_back(creep);
+		TargetList.push_back(creep);
+		wControl->Creeplist.push_back(creep);
+		wControl->Componentlist.push_back(m);
+	}
 
 
 
@@ -213,7 +167,6 @@ void GameScene::load() {
 			s->getShape().setFillColor(Color::Cyan);
 			s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 			a->setSpeed(1000.0f);
-			a->gui = gameGUI;
 		
 			bullet->setPosition(Vector2f(-50.0f, -50.0f));
 			bullet->setAlive(false);
@@ -231,13 +184,12 @@ void GameScene::load() {
 		turret->setVisible(false);
 
 		x->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
-		x->getShape().setFillColor(Color::Green);
+		x->getShape().setFillColor(Color::Blue);
 		x->getShape().setOrigin(Vector2f(25.0f, 25.0f));
 
 		b->Bulletlist = turretBullets;
 		b->Componentlist = turretBulletComponents;
 		b->Targetlist = TargetList;
-		b->creepComponentlist = wControl->Componentlist;
 		tControl->Turretlist.push_back(turret);
 		tControl->Componentlist.push_back(b);
 		_em.list.push_back(turret);
