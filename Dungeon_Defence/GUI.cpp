@@ -17,25 +17,25 @@ GUI::GUI() {
 	}
 	money.setFont(font);
 	money.setString("Money: $ 100");
-	money.setCharacterSize(30);
+	money.setCharacterSize(36);
 	money.setFillColor(Color::Yellow);
-	money.setPosition(1550, 20);
+	money.setPosition(1530, 20);
 	money.setOutlineColor(Color::Black);
 	money.setOutlineThickness(1);
 
-	lives.setCharacterSize(30);
+	lives.setCharacterSize(36);
 	lives.setFont(font);
 	lives.setString("Lives: 20");
 	lives.setFillColor(Color::Red);
-	lives.setPosition(1550, 50);
+	lives.setPosition(1530, 60);
 	lives.setOutlineColor(Color::Black);
 	lives.setOutlineThickness(1);
 
-	waveTime.setCharacterSize(30);
+	waveTime.setCharacterSize(34);
 	waveTime.setFont(font);
 	waveTime.setString("Time until next wave: 60s");
 	waveTime.setFillColor(Color::Blue);
-	waveTime.setPosition(1550, 1000);
+	waveTime.setPosition(1530, 1000);
 	waveTime.setOutlineColor(Color::Black);
 	waveTime.setOutlineThickness(1);
 }
