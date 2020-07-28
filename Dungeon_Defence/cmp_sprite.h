@@ -1,6 +1,9 @@
 #pragma once
 #include "ecm.h"
 
+using namespace std;
+using namespace sf;
+
 class ShapeComponent : public Component {
 protected:
 	std::shared_ptr<sf::Shape> _shape;
@@ -17,4 +20,15 @@ public:
 	void setShape(Targs... params) {
 		_shape.reset(new T(params...));
 	}
+};
+
+
+class SpriteComponent : public Component {
+public:
+	SpriteComponent(Entity *p);
+	shared_ptr<Sprite> sprite;
+	void update(double dt) override;
+	void render() override;
+
+
 };

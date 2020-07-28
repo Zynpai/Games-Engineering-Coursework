@@ -74,17 +74,26 @@ void GameScene::load() {
 		auto s = creep->addComponent<ShapeComponent>();
 		auto m = creep->addComponent<CreepMovementComponent>();
 
-		s->setShape<CircleShape>(12.0f);
-		s->getShape().setOrigin(Vector2f(6.0f, 6.0f));
+		s->setShape<CircleShape>(20.0f);
 		s->getShape().setFillColor(Color::Magenta);
-		m->gui = gameGUI;
+		s->getShape().setOrigin(Vector2f(10.0f,10.0f));
+		//Texture blankTex;
+		//if (!blankTex.create(32, 32)) {
+			//error
+		//	throw string("why did this fail?");
+		//}
+		//s->sprite->setTexture(blankTex);
+		
+
 		creep->setAlive(false);
 		creep->setVisible(false);
+		m->gui = gameGUI;
 
 		_em.list.push_back(creep);
 		TargetList.push_back(creep);
 		wControl->Creeplist.push_back(creep);
 		wControl->Componentlist.push_back(m);
+		//wControl->spriteList.push_back(s);
 
 	}
 
