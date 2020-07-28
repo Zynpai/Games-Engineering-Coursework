@@ -11,6 +11,7 @@
 #include "game.h"
 #include "cmp_turret.h"
 #include "levelsystem.h"
+#include "GUI.h"
 //fixes one issue but makes another?
 #ifndef Turretcontrol
 #define Turretcontrol

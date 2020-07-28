@@ -50,14 +50,60 @@ void TurretController::Placeturret(string type) {
 							tcomp->setRange(200);
 							tcomp->targetAir = true;
 							tcomp->targetGround = true;
-							//charge player for price of turret
+							
 
 
 							turretpointer++;
 						}
 						
 					}
+					if (type == "fireball") {
+						//fireball cost of 50, can be ballanced later
+						if (gui->getMoney() >= 50) {
+							gui->setMoney(gui->getMoney() - 50);
+							auto turret = Turretlist.at(turretpointer);
 
+
+							turret->setPosition(Tile);
+							turret->setAlive(true);
+							turret->setVisible(true);
+
+							auto tcomp = Componentlist.at(turretpointer);
+							tcomp->setDamage(40);
+							tcomp->setRate(3);
+							tcomp->setRange(300);
+							tcomp->targetAir = false;
+							tcomp->targetGround = true;
+							
+
+
+							turretpointer++;
+						}
+					}
+					if (type == "lightning") {
+						//lightning cost of 40, can be ballanced later
+						if (gui->getMoney() >= 40) {
+							gui->setMoney(gui->getMoney() - 40);
+							auto turret = Turretlist.at(turretpointer);
+
+
+							turret->setPosition(Tile);
+							turret->setAlive(true);
+							turret->setVisible(true);
+
+							auto tcomp = Componentlist.at(turretpointer);
+							tcomp->setDamage(30);
+							tcomp->setRate(2);
+							tcomp->setRange(500);
+							tcomp->targetAir = true;
+							tcomp->targetGround = false;
+								
+
+
+							turretpointer++;
+						}
+					}
+					
 
 				}
 			}

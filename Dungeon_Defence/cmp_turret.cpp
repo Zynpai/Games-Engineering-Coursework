@@ -50,9 +50,53 @@ void TurretComponent::update(double dt) {
 			}
 			//else, check what the turret can shoot against list of enemies, and check state of enemies for match
 			else if(targetAir){
+				for (int i = 0; i < Targetlist.size(); i++) {
+					if (Targetlist.at(i)->isAlive() && creepComponentlist.at(i)->flying) {
+						float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
+						//if in range, shoot
+						if (magnitude <= _range) {
+							Componentlist.at(_bulletcounter)->target = Targetlist.at(i);
+							Componentlist.at(_bulletcounter)->targetComponent = creepComponentlist.at(i);
+							Componentlist.at(_bulletcounter)->targeted = true;
+							Bulletlist.at(_bulletcounter)->setPosition(_parent->getPosition());
+							Bulletlist.at(_bulletcounter)->setAlive(true);
+							Bulletlist.at(_bulletcounter)->setVisible(true);
+							_bulletcounter++;
+							if (_bulletcounter > 2) {
+								_bulletcounter = 0;
+							}
+							_cooldown = _firerate;
+							break;
+						}
+
+
+					}
+				}
 			}
 			else if (targetGround) {
+				for (int i = 0; i < Targetlist.size(); i++) {
+					if (Targetlist.at(i)->isAlive() && !creepComponentlist.at(i)->flying) {
+						float magnitude = sqrt(pow(Targetlist.at(i)->getPosition().x - _parent->getPosition().x, 2) + pow(Targetlist.at(i)->getPosition().y - _parent->getPosition().y, 2));
+						//if in range, shoot
+						if (magnitude <= _range) {
+							Componentlist.at(_bulletcounter)->target = Targetlist.at(i);
+							Componentlist.at(_bulletcounter)->targetComponent = creepComponentlist.at(i);
+							Componentlist.at(_bulletcounter)->targeted = true;
+							Bulletlist.at(_bulletcounter)->setPosition(_parent->getPosition());
+							Bulletlist.at(_bulletcounter)->setAlive(true);
+							Bulletlist.at(_bulletcounter)->setVisible(true);
+							_bulletcounter++;
+							if (_bulletcounter > 2) {
+								_bulletcounter = 0;
+							}
+							_cooldown = _firerate;
+							break;
+						}
 
+
+					}
+
+				}
 			}
 			
 

@@ -56,6 +56,7 @@ void GameScene::update(double dt) {
 
 	tControl->update(dt);
 	wControl->update(dt);
+	gameGUI->update(dt);
 }
 
 void GameScene::render() {
@@ -67,6 +68,40 @@ void GameScene::render() {
 void GameScene::load() {
 	tControl->gui = gameGUI;
 	wControl->gui = gameGUI;
+	//initialise buttons and ghost for gui
+	auto Basicbutton = make_shared<Entity>();
+	auto sh = Basicbutton->addComponent<ShapeComponent>();
+	sh->setShape<RectangleShape>(Vector2f(200,100));
+	sh->getShape().setFillColor(Color::Black);
+	Basicbutton->setPosition(Vector2f(1630, 150));
+	_em.list.push_back(Basicbutton);
+	gameGUI->Basicbutton = Basicbutton;
+
+	auto Fireballbutton = make_shared<Entity>();
+	auto sh2 = Fireballbutton->addComponent<ShapeComponent>();
+	sh2->setShape<RectangleShape>(Vector2f(200, 100));
+	sh2->getShape().setFillColor(Color::Black);
+	Fireballbutton->setPosition(Vector2f(1630, 300));
+	_em.list.push_back(Fireballbutton);
+	gameGUI->Fireballbutton = Fireballbutton;
+
+	auto Lightningbutton = make_shared<Entity>();
+	auto sh3 = Lightningbutton->addComponent<ShapeComponent>();
+	sh3->setShape<RectangleShape>(Vector2f(200, 100));
+	sh3->getShape().setFillColor(Color::Black);
+	Lightningbutton->setPosition(Vector2f(1630, 450));
+	_em.list.push_back(Lightningbutton);
+	gameGUI->Lightningbutton = Lightningbutton;
+
+	//ghost is the only one that should keep a shape, sprites would be preffered for buttons
+	auto Ghost = make_shared<Entity>();
+	auto sh4 = Ghost->addComponent<ShapeComponent>();
+	sh4->setShape<RectangleShape>(Vector2f(50, 50));
+	_em.list.push_back(Ghost);
+	Ghost->setAlive(false);
+	Ghost->setVisible(false);
+	gameGUI->Ghost = Ghost;
+
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
 	for (int l = 0; l < 20; l++) {
@@ -98,7 +133,7 @@ void GameScene::load() {
 	}
 
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
-	//targetlist stores a smaller list of entities for turrets, to save on processing time (aka zy when you make creeps put them here)
+	//targetlist stores a smaller list of entities for turrets, to save on processing time
 	std::vector<std::shared_ptr<Entity>> playerBullets;
 	std::vector<std::shared_ptr<BulletMovementComponent>> BulletComponents;
 	for (int i = 0; i < 5; i++) {
@@ -106,7 +141,7 @@ void GameScene::load() {
 		auto s = bullet->addComponent<ShapeComponent>();
 		auto a = bullet->addComponent<BulletMovementComponent>();
 		s->setShape<CircleShape>(8.0f);
-		s->getShape().setFillColor(Color::Blue);
+		s->getShape().setFillColor(Color::Cyan);
 		s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 		a->setSpeed(300);
 		a->gui = gameGUI;
@@ -150,8 +185,6 @@ void GameScene::load() {
 	c->getShape().setFillColor(Color::Green);
 
 	_em.list.push_back(player);
-	//testing turrets fire capabilites with player first
-	//TargetList.push_back(player);
 	_em.list.push_back(a->Tremor);
 	_em.list.push_back(a->Wall);
 
@@ -194,7 +227,7 @@ void GameScene::load() {
 		turret->setVisible(false);
 
 		x->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
-		x->getShape().setFillColor(Color::Blue);
+		x->getShape().setFillColor(Color::Green);
 		x->getShape().setOrigin(Vector2f(25.0f, 25.0f));
 
 		b->Bulletlist = turretBullets;

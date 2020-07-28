@@ -26,21 +26,27 @@ void PlayerMovementComponent::update(double dt) {
 
 	}
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		//Basic attack
-		if (shotCooldown <= 0.0f) {
-			auto bullet = Bulletlist.at(bulletpointer);
-			auto a = Componentlist.at(bulletpointer);
-			Vector2f MousePos = Vector2f(Mouse::getPosition());
-			float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
-			Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
-			a->VecTarget = direction;
-			a->move(_parent->getPosition() - bullet->getPosition());
-			bulletpointer++;
-			if (bulletpointer >= 5) { bulletpointer = 0; }
-			shotCooldown = 1.0f;
-			bullet->setAlive(true);
-			bullet->setVisible(true);
+		if (placeMode) {
+
 		}
+		else{ 
+			//Basic attack
+			if (shotCooldown <= 0.0f) {
+				auto bullet = Bulletlist.at(bulletpointer);
+				auto a = Componentlist.at(bulletpointer);
+				Vector2f MousePos = Vector2f(Mouse::getPosition());
+				float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
+				Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
+				a->VecTarget = direction;
+				a->move(_parent->getPosition() - bullet->getPosition());
+				bulletpointer++;
+				if (bulletpointer >= 5) { bulletpointer = 0; }
+				shotCooldown = 1.0f;
+				bullet->setAlive(true);
+				bullet->setVisible(true);
+			}
+		}
+		
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
 		//Wall ability
@@ -63,6 +69,14 @@ void PlayerMovementComponent::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
 		//turret testing hotkey
 		Tcontrol->Placeturret("basic");
+	}
+	if (Keyboard::isKeyPressed(Keyboard::R)) {
+		//turret testing hotkey
+		Tcontrol->Placeturret("fireball");
+	}
+	if (Keyboard::isKeyPressed(Keyboard::T)) {
+		//turret testing hotkey
+		Tcontrol->Placeturret("lightning");
 	}
 
 

@@ -26,8 +26,8 @@ protected:
 
 	int creepPointer = 0;
 
-	//what wave we are on, can be used for scaling and special waves
-	int waveNo = 1;
+	//what wave we are on, can be used for scaling and special waves, must be float for dividing
+	float waveNo = 1;
 public:
 	WaveController();
 	shared_ptr<GUI> gui;

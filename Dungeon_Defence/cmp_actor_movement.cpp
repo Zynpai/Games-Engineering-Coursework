@@ -65,7 +65,11 @@ void BulletMovementComponent::update(double dt) {
 		//pow and sqrt to get a positive distance, actual distance number is placeholder
 		if (sqrt(pow(target->getPosition().x - _parent->getPosition().x,2)) <= 10 && sqrt(pow(target->getPosition().y - _parent->getPosition().y, 2)) <=10) {
 			//insert damage scripts here
-			targetComponent->health = targetComponent->health - damage;
+			int calcDamage = (damage - targetComponent->armor);
+			if (calcDamage <= 0) {
+				calcDamage = 1;
+			}
+			targetComponent->health = targetComponent->health - calcDamage;
 			if (targetComponent->health <=0) {
 				if (target->isAlive()) {
 					gui->setMoney(gui->getMoney() + targetComponent->reward);
@@ -94,8 +98,12 @@ void BulletMovementComponent::update(double dt) {
 		for (int i = 0; i < Creeplist.size(); i++) {
 			if (Creeplist.at(i)->isAlive()) {
 				if (sqrt(pow(Creeplist.at(i)->getPosition().x - _parent->getPosition().x, 2)) <= 20 && sqrt(pow(Creeplist.at(i)->getPosition().y - _parent->getPosition().y, 2)) <= 20) {
-
-					CreepComponentlist.at(i)->health = CreepComponentlist.at(i)->health - damage;
+					//health goes down by damage, reduced by armor to a min of 1
+					int calcDamage = (damage - CreepComponentlist.at(i)->armor);
+					if (calcDamage <= 0) {
+						calcDamage = 1;
+					}
+					CreepComponentlist.at(i)->health = CreepComponentlist.at(i)->health - calcDamage;
 					if (CreepComponentlist.at(i)->health <= 0) {
 						if(Creeplist.at(i)->isAlive()){
 							gui->setMoney(gui->getMoney() + CreepComponentlist.at(i)->reward);

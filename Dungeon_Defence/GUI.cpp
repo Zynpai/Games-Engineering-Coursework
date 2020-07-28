@@ -2,13 +2,17 @@
 #include <SFML/Graphics.hpp>
 #include <ecm.h>
 #include "GUI.h"
-
+#include "levelsystem.h"
 using namespace sf;
 using namespace std;
 
 sf::Text GUI::money;
 sf::Text GUI::lives;
 sf::Text GUI::waveTime;
+
+sf::Text GUI::Basic;
+sf::Text GUI::Fire;
+sf::Text GUI::Lightning;
 
 GUI::GUI() {
 	if (!font.loadFromFile("res/arial.ttf")) {
@@ -38,6 +42,30 @@ GUI::GUI() {
 	waveTime.setPosition(1530, 1000);
 	waveTime.setOutlineColor(Color::Black);
 	waveTime.setOutlineThickness(1);
+
+	Basic.setCharacterSize(25);
+	Basic.setFont(font);
+	Basic.setString("Archer   $20 (E)");
+	Basic.setFillColor(Color::Yellow);
+	Basic.setPosition(1630, 110);
+	Basic.setOutlineColor(Color::Black);
+	Basic.setOutlineThickness(1);
+
+	Fire.setCharacterSize(25);
+	Fire.setFont(font);
+	Fire.setString("Fireball   $50 (R)");
+	Fire.setFillColor(Color::Yellow);
+	Fire.setPosition(1630, 260);
+	Fire.setOutlineColor(Color::Black);
+	Fire.setOutlineThickness(1);
+
+	Lightning.setCharacterSize(25);
+	Lightning.setFont(font);
+	Lightning.setString("Lightning   $40 (T)");
+	Lightning.setFillColor(Color::Yellow);
+	Lightning.setPosition(1630, 410);
+	Lightning.setOutlineColor(Color::Black);
+	Lightning.setOutlineThickness(1);
 }
 
 
@@ -63,8 +91,53 @@ void GUI::updateTimer(int Time){
 	waveTime.setString("Time until next wave: "+ to_string(Time) +"s");
 }
 
+void GUI::update(double dt) {
+	//basic ui design, if you have enough to buy the tower, light up green
+	if (_money >= 20) {
+		Basic.setFillColor(Color::Green);
+	}
+	else {
+		Basic.setFillColor(Color::Yellow);
+	}
+
+	if (_money >= 50) {
+		Fire.setFillColor(Color::Green);
+	}
+	else {
+		Fire.setFillColor(Color::Yellow);
+	}
+
+	if (_money >= 40) {
+		Lightning.setFillColor(Color::Green);
+	}
+	else {
+		Lightning.setFillColor(Color::Yellow);
+	}
+
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+	//check if it clicked a button
+		if (sqrt(pow(Mouse::getPosition().x - Basicbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Basicbutton->getPosition().y, 2)) <= 50) {
+			//do something with basic turret
+		
+		}
+		else if (sqrt(pow(Mouse::getPosition().x - Fireballbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Fireballbutton->getPosition().y, 2)) <= 50) {
+			//do something with fire turret
+
+		}
+		else if (sqrt(pow(Mouse::getPosition().x - Lightningbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Lightningbutton->getPosition().y, 2)) <= 50) {
+			//do something with lightning turret
+
+		}
+	
+	}
+
+}
+
 void GUI::Render(RenderWindow &window) {
 	window.draw(money);
 	window.draw(lives);
 	window.draw(waveTime);
+	window.draw(Basic);
+	window.draw(Fire);
+	window.draw(Lightning);
 }
