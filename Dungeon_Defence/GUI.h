@@ -8,12 +8,16 @@ public:
 	sf::Font font;
 	static sf::Text money;
 	static sf::Text lives;
+	static sf::Text waveTime;
 
 	void setMoney(int money);
 	int getMoney();
 
 	void setLives(int lives);
 	int getLives();
+
+	void updateTimer(int Time);
+
 	static void Render(sf::RenderWindow &window);
 
 protected:

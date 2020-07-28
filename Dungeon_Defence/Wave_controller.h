@@ -30,7 +30,7 @@ protected:
 	int waveNo = 1;
 public:
 	WaveController();
-
+	shared_ptr<GUI> gui;
 	//i wish i knew a better way to do this right now
 	std::vector<std::shared_ptr<Entity>> Creeplist;
 	std::vector<std::shared_ptr<CreepMovementComponent>> Componentlist;

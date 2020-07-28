@@ -19,8 +19,13 @@ WaveController::WaveController() {}
 
 
 void WaveController::update(double dt) {
-	if (cooldown > 0) { cooldown = cooldown - dt; }
-	if (cooldown <= 0) {
+	if (cooldown > 0) { 
+		cooldown = cooldown - dt; 
+		//doing this to help display time better
+		if (cooldown < 0) { cooldown = 0; }
+		gui->updateTimer(floor(cooldown));
+	}
+	if (cooldown == 0) {
 		//spawn the next wave
 		if (spacing > 0) { spacing = spacing - dt; }
 		if (spacing <= 0) {

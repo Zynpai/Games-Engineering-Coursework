@@ -66,6 +66,7 @@ void GameScene::render() {
 
 void GameScene::load() {
 	tControl->gui = gameGUI;
+	wControl->gui = gameGUI;
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
 	for (int l = 0; l < 20; l++) {
