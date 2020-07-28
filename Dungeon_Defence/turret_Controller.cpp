@@ -34,23 +34,28 @@ void TurretController::Placeturret(string type) {
 				Occupied.push_back(Tile);
 				if (turretpointer < 30) {
 					if (type == "basic") {
-						auto turret = Turretlist.at(turretpointer);
+						//basic cost of 20, can be ballanced later
+						if (gui->getMoney()>= 20) {
+							gui->setMoney(gui->getMoney()-20);
+							auto turret = Turretlist.at(turretpointer);
 
 
-						turret->setPosition(Tile);
-						turret->setAlive(true);
-						turret->setVisible(true);
+							turret->setPosition(Tile);
+							turret->setAlive(true);
+							turret->setVisible(true);
 
-						auto tcomp = Componentlist.at(turretpointer);
-						tcomp->setDamage(5);
-						tcomp->setRate(1);
-						tcomp->setRange(200);
-						tcomp->targetAir = true;
-						tcomp->targetGround = true;
-						//charge player for price of turret
+							auto tcomp = Componentlist.at(turretpointer);
+							tcomp->setDamage(5);
+							tcomp->setRate(1);
+							tcomp->setRange(200);
+							tcomp->targetAir = true;
+							tcomp->targetGround = true;
+							//charge player for price of turret
 
 
-						turretpointer++;
+							turretpointer++;
+						}
+						
 					}
 
 

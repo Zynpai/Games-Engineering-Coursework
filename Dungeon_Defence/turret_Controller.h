@@ -32,6 +32,7 @@ public:
 	std::vector<std::shared_ptr<Entity>> Turretlist;
 	std::vector<std::shared_ptr<TurretComponent>> Componentlist;
 	std::vector<Vector2f> Occupied;
+	shared_ptr<GUI> gui;
 
 	void Placeturret(string type);
 

@@ -67,9 +67,11 @@ void BulletMovementComponent::update(double dt) {
 			//insert damage scripts here
 			targetComponent->health = targetComponent->health - damage;
 			if (targetComponent->health <=0) {
-				gui->setMoney(gui->getMoney() + targetComponent->reward);
-				target->setAlive(false);
-				target->setVisible(false);
+				if (target->isAlive()) {
+					gui->setMoney(gui->getMoney() + targetComponent->reward);
+					target->setAlive(false);
+					target->setVisible(false);
+				}
 			}
 			_parent->setAlive(false);
 			_parent->setVisible(false);
@@ -95,9 +97,11 @@ void BulletMovementComponent::update(double dt) {
 
 					CreepComponentlist.at(i)->health = CreepComponentlist.at(i)->health - damage;
 					if (CreepComponentlist.at(i)->health <= 0) {
-						gui->setMoney(gui->getMoney() + CreepComponentlist.at(i)->reward);
-						Creeplist.at(i)->setAlive(false);
-						Creeplist.at(i)->setVisible(false);
+						if(Creeplist.at(i)->isAlive()){
+							gui->setMoney(gui->getMoney() + CreepComponentlist.at(i)->reward);
+							Creeplist.at(i)->setAlive(false);
+							Creeplist.at(i)->setVisible(false);
+						}
 					}
 					_parent->setAlive(false);
 					_parent->setVisible(false);
