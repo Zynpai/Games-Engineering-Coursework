@@ -11,6 +11,7 @@
 #include "game.h"
 #include "cmp_turret.h"
 #include "levelsystem.h"
+#include "GUI.h"
 //fixes one issue but makes another?
 #ifndef Turretcontrol
 #define Turretcontrol
@@ -21,7 +22,7 @@ using namespace sf;
 class TurretController {
 
 protected:
-	float cooldown = 0.1f;
+	float cooldown = 0.05f;
 	
 	int turretpointer = 0;
 
@@ -31,6 +32,8 @@ public:
 	//i wish i knew a better way to do this right now
 	std::vector<std::shared_ptr<Entity>> Turretlist;
 	std::vector<std::shared_ptr<TurretComponent>> Componentlist;
+	std::vector<Vector2f> Occupied;
+	shared_ptr<GUI> gui;
 
 	void Placeturret(string type);
 

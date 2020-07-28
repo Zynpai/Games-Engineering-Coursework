@@ -14,6 +14,9 @@ public:
 	std::shared_ptr<Entity> Wall;
 	std::shared_ptr<Entity> Tremor;
 	std::shared_ptr<TurretController> Tcontrol;
+	//used to toggle between placing towers and shooting
+	bool placeMode = false;
+	std::string storedTower;
 
 	int bulletpointer = 0;
 	float shotCooldown = 0.0f;
