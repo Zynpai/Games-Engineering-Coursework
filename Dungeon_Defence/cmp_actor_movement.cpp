@@ -9,6 +9,7 @@
 #include "scene.h"
 #include "game.h"
 #include <LevelSystem.h>
+#include "GUI.h"
 
 using namespace std;
 using namespace sf;
@@ -66,6 +67,7 @@ void BulletMovementComponent::update(double dt) {
 			//insert damage scripts here
 			targetComponent->health = targetComponent->health - damage;
 			if (targetComponent->health <=0) {
+				gui->setMoney(gui->getMoney() + targetComponent->reward);
 				target->setAlive(false);
 				target->setVisible(false);
 			}
@@ -93,6 +95,7 @@ void BulletMovementComponent::update(double dt) {
 
 					CreepComponentlist.at(i)->health = CreepComponentlist.at(i)->health - damage;
 					if (CreepComponentlist.at(i)->health <= 0) {
+						gui->setMoney(gui->getMoney() + CreepComponentlist.at(i)->reward);
 						Creeplist.at(i)->setAlive(false);
 						Creeplist.at(i)->setVisible(false);
 					}
@@ -120,5 +123,10 @@ CreepMovementComponent::CreepMovementComponent(Entity* p)
 void CreepMovementComponent::update(double dt) {
 	//just some code to make sure spacing works, delete when real code is used
 	move(0, 1.5);
+	if (ls::getTileAt(_parent->getPosition()) == ls::START) {
+		gui->setLives(gui->getLives()-1);
+		_parent->setAlive(false);
+		_parent->setVisible(false);
+	}
 }
 

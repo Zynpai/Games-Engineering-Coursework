@@ -36,7 +36,7 @@ public:
 	bool flying;
 	//money obtained on kill
 	int reward;
-
+	shared_ptr<GUI> gui;
 	//some special properties?
 	//float regenAmount : every second heal health by this? (would also require a maxhealth var)
 	//float armor : reduce incomming damage by amount listed? (maybe have a min damage so that any tower can still hurt)
@@ -53,6 +53,7 @@ public:
 	//for use with targeted bullets
 	shared_ptr<Entity> target;
 	shared_ptr<CreepMovementComponent> targetComponent;
+	shared_ptr<GUI> gui;
 	//for use with untargeted bullets
 	vector<shared_ptr<Entity>> Creeplist;
 	vector<shared_ptr<CreepMovementComponent>> CreepComponentlist;

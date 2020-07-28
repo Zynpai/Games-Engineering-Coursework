@@ -21,6 +21,7 @@ using namespace std;
 //global so i can put it in gamescene's update
 auto tControl = make_shared<TurretController>();
 auto wControl = make_shared<WaveController>();
+auto gameGUI = make_shared<GUI>();
 
 void MenuScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
@@ -36,11 +37,6 @@ void MenuScene::render() {
 }
 
 void MenuScene::load() {
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {
-		//it broke
-		throw string("Could not load font file :(");
-	}
 	//adding a square so menu isnt just a black void
 	auto menuSquare = make_shared<Entity>();
 	auto s = menuSquare->addComponent<ShapeComponent>();
@@ -65,14 +61,11 @@ void GameScene::update(double dt) {
 void GameScene::render() {
 	ls::Render(Renderer::getWindow());
 	Scene::render();
+	gameGUI->Render(Renderer::getWindow());
 }
 
 void GameScene::load() {
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {
-		//it broke
-		throw string("Could not load font file :(");
-	}
+	
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
 	for (int l = 0; l < 20; l++) {
@@ -83,7 +76,7 @@ void GameScene::load() {
 		s->setShape<CircleShape>(12.0f);
 		s->getShape().setOrigin(Vector2f(6.0f, 6.0f));
 		s->getShape().setFillColor(Color::Magenta);
-
+		m->gui = gameGUI;
 		creep->setAlive(false);
 		creep->setVisible(false);
 
@@ -106,6 +99,7 @@ void GameScene::load() {
 		s->getShape().setFillColor(Color::Blue);
 		s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 		a->setSpeed(300);
+		a->gui = gameGUI;
 		a->Creeplist = wControl->Creeplist;
 		a->CreepComponentlist = wControl->Componentlist;
 		//temporary damage val, can be changed for balance later
@@ -172,6 +166,7 @@ void GameScene::load() {
 			s->getShape().setFillColor(Color::Cyan);
 			s->getShape().setOrigin(Vector2f(4.0f, 4.0f));
 			a->setSpeed(1000.0f);
+			a->gui = gameGUI;
 		
 			bullet->setPosition(Vector2f(-50.0f, -50.0f));
 			bullet->setAlive(false);
