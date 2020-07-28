@@ -21,6 +21,8 @@ using namespace std;
 auto tControl = make_shared<TurretController>();
 auto wControl = make_shared<WaveController>();
 
+
+
 void MenuScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		activeScene = gameScene;
@@ -57,11 +59,20 @@ void GameScene::update(double dt) {
 }
 
 void GameScene::render() {
-	ls::Render(Renderer::getWindow());
+	//ls::Render(Renderer::getWindow());
 	Scene::render();
+	Renderer::getWindow().draw(sMap);
 }
 
 void GameScene::load() {
+	//sf::Texture map;
+	map.loadFromFile("res/Map2.png");
+
+	// Create a sprite
+	//sf::Sprite sprite;
+	sMap.setTexture(map);
+	sMap.setPosition(0, 0);
+
 	//this is probably the least efficient way of doing things, but i am unsure of a different way
 	//targetlist stores a smaller list of entities for turrets, to save on processing time (aka zy when you make creeps put them here)
 	std::vector<std::shared_ptr<Entity>> TargetList;

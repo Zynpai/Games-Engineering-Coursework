@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 
+
 using namespace std;
 using namespace sf;
 
@@ -14,6 +15,9 @@ float LevelSystem::_tileSize(100.0f);
 vector<unique_ptr<RectangleShape>> LevelSystem::_sprites;
 
 map<LevelSystem::TILE, Color> LevelSystem::_colours{ {WALL, Color::White},{END, Color::Red}, {EMPTY, Color::Black}, {START, Color::Green} , {ENEMY, Color::Blue}, {WAYPOINT, sf::Color(204, 207, 206)} };
+
+//sf::Texture* wall;
+
 
 Color LevelSystem::getColor(LevelSystem::TILE t) {
 	auto it = _colours.find(t);
@@ -28,6 +32,7 @@ void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
 }
 
 void LevelSystem::loadLevelFile(const string& path, float tileSize){
+
 
 	_tileSize = tileSize;
 	size_t w = 0, h = 0;
@@ -133,16 +138,27 @@ std::vector<sf::Vector2f> LevelSystem::findTiles(TILE t)
 }
 
 void LevelSystem::buildSprites() {
+	//wall->loadFromFile("res/textures/Wall.png");
 
 	_sprites.clear();
 	for (size_t y = 0; y < LevelSystem::getHeight(); y++) {
 		for (size_t x = 0; x < LevelSystem::getWidth(); x++) {
+			//if (getTile({ x, y }) == WALL) {
+			//	auto s = make_unique<RectangleShape>();
+			//	s->setTexture(wall);
+			//	s->setSize(Vector2f(_tileSize, _tileSize));
 
-			auto s = make_unique<RectangleShape>();
-			s->setPosition(getTilePosition({ x, y }));
-			s->setSize(Vector2f(_tileSize, _tileSize));
-			s->setFillColor(getColor(getTile({ x, y })));
-			_sprites.push_back(move(s));
+			//	_sprites.push_back(move(s));
+			//}
+			//else
+			//{
+				auto s = make_unique<RectangleShape>();
+				s->setPosition(getTilePosition({ x, y }));
+				s->setSize(Vector2f(_tileSize, _tileSize));
+				s->setFillColor(getColor(getTile({ x, y })));
+
+				_sprites.push_back(move(s));
+			/*}*/
 		}
 
 	}

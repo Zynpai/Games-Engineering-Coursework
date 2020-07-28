@@ -24,6 +24,8 @@ private:
 	void respawn();
 
 public:
+	sf::Texture map;
+	sf::Sprite sMap;
 	GameScene() = default;
 	void update(double dt) override;
 	void render() override;
