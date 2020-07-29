@@ -26,26 +26,23 @@ void PlayerMovementComponent::update(double dt) {
 
 	}
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		if (placeMode) {
-
+		
+		//Basic attack
+		if (shotCooldown <= 0.0f) {
+			auto bullet = Bulletlist.at(bulletpointer);
+			auto a = Componentlist.at(bulletpointer);
+			Vector2f MousePos = Vector2f(Mouse::getPosition());
+			float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
+			Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
+			a->VecTarget = direction;
+			a->move(_parent->getPosition() - bullet->getPosition());
+			bulletpointer++;
+			if (bulletpointer >= 5) { bulletpointer = 0; }
+			shotCooldown = 1.0f;
+			bullet->setAlive(true);
+			bullet->setVisible(true);
 		}
-		else{ 
-			//Basic attack
-			if (shotCooldown <= 0.0f) {
-				auto bullet = Bulletlist.at(bulletpointer);
-				auto a = Componentlist.at(bulletpointer);
-				Vector2f MousePos = Vector2f(Mouse::getPosition());
-				float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
-				Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
-				a->VecTarget = direction;
-				a->move(_parent->getPosition() - bullet->getPosition());
-				bulletpointer++;
-				if (bulletpointer >= 5) { bulletpointer = 0; }
-				shotCooldown = 1.0f;
-				bullet->setAlive(true);
-				bullet->setVisible(true);
-			}
-		}
+		
 		
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
@@ -65,18 +62,18 @@ void PlayerMovementComponent::update(double dt) {
 			tremorCooldown = 5.0f;
 		}
 	}
-
+	//hotkeys for turrets
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("basic");
+		Tcontrol->updateStored("basic");
+		Tcontrol->placementMode = true;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::R)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("fireball");
+		Tcontrol->updateStored("fireball");
+		Tcontrol->placementMode = true;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::T)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("lightning");
+		Tcontrol->updateStored("lightning");
+		Tcontrol->placementMode = true;
 	}
 
 

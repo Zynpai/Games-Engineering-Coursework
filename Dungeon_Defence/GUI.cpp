@@ -114,37 +114,7 @@ void GUI::update(double dt) {
 		Lightning.setFillColor(Color::Yellow);
 	}
 
-	if (Mouse::isButtonPressed(Mouse::Left)) {
-	//check if it clicked a button
-		if (sqrt(pow(Mouse::getPosition().x - Basicbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Basicbutton->getPosition().y, 2)) <= 50) {
-			//do something with basic turret
-			if (Buttoncooldown <= 0) {
-				Basicbutton->setVisible(!Basicbutton->isVisible());
-				Buttoncooldown = 0.1f;
-			}
-			
-		}
-		else if (sqrt(pow(Mouse::getPosition().x - Fireballbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Fireballbutton->getPosition().y, 2)) <= 50) {
-			//do something with fire turret
-			if (Buttoncooldown <= 0) {
-				Fireballbutton->setVisible(!Fireballbutton->isVisible());
-				Buttoncooldown = 0.1f;
-			}
-		}
-		else if (sqrt(pow(Mouse::getPosition().x - Lightningbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Lightningbutton->getPosition().y, 2)) <= 50) {
-			//do something with lightning turret
-			if (Buttoncooldown <= 0) {
-				Lightningbutton->setVisible(!Lightningbutton->isVisible());
-				Buttoncooldown = 0.1f;
-			}
-		}
-	
-	}
-	if (Buttoncooldown > 0) {
 
-		Buttoncooldown = Buttoncooldown - dt;
-	}
-	if (Buttoncooldown < 0) { Buttoncooldown = 0; }
 
 }
 

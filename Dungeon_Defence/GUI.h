@@ -19,15 +19,7 @@ public:
 
 	void setMoney(int money);
 	int getMoney();
-	float Buttoncooldown = 0.1;
-	////used for button functionality
-	//shared_ptr<PlayerMovementComponent> player;
-
-	shared_ptr<Entity> Basicbutton;
-	shared_ptr<Entity> Fireballbutton;
-	shared_ptr<Entity> Lightningbutton;
-	//the turret ghost that tells you where the turret will go
-	shared_ptr<Entity> Ghost;
+	
 
 	void setLives(int lives);
 	int getLives();
