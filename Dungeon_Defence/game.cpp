@@ -128,7 +128,7 @@ void GameScene::load() {
 
 		s->setShape<CircleShape>(20.0f);
 		s->getShape().setFillColor(Color::Magenta);
-		s->getShape().setOrigin(Vector2f(10.0f,10.0f));
+		s->getShape().setOrigin(Vector2f(20.0f,40.0f));
 		//footman.loadFromFile("res/Map2.png");
 		//s->sprite->setTexture(blankTex);
 		

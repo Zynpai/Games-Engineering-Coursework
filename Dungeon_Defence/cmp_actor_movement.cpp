@@ -128,13 +128,70 @@ void BulletMovementComponent::update(double dt) {
 
 
 //for enemy use
+//right, left
+static const Vector2i directions[] = { Vector2i{ 1, 0 }, Vector2i{ -1, 0 } };
 
-CreepMovementComponent::CreepMovementComponent(Entity* p)
-	: ActorMovementComponent(p) {}
+CreepMovementComponent::CreepMovementComponent(Entity* p): ActorMovementComponent(p) {
+	_state = ROAMING;
+	_speed = 1.5f;
+	_direction = Vector2f(Vector2i{ 0, 1 });
+}
 
 void CreepMovementComponent::update(double dt) {
-	//just some code to make sure spacing works, delete when real code is used
-	move(0, 1.5);
+	//amount to move
+	const auto mva = (float)(dt * _speed);
+	//current position
+	const Vector2f pos = _parent->getPosition();
+	//next pos
+	const Vector2f newPos = pos + _direction * mva;
+	////inverse of current pos
+	//const Vector2i badDir = -1 * Vector2i(_direction);
+	//random new direction (left and right)
+	Vector2i newDir = directions[(rand() % 2)];
+
+
+	//down direction
+	bool down = false;
+	Vector2i downDir = Vector2i{ 0, 1 };
+
+
+	switch (_state)
+	{
+	case CreepMovementComponent::ROAMING:
+		if (ls::getTileAt(newPos) == ls::ENEMY) { //if wall in front 
+			_state = ROTATING; //start rotating
+		}
+		else {
+			move(_direction * mva); //keep moving
+		}
+		break;
+	case CreepMovementComponent::ROTATING:
+		//if down direction isnt a wall prioritise going there first
+		if (ls::getTileAt(pos + Vector2f(downDir) * mva) != ls::ENEMY)
+		{
+			newDir = downDir;
+			
+		}
+		else
+		{
+			while (ls::getTileAt(pos + Vector2f(newDir) * mva) == ls::ENEMY && newDir == oldDir) {
+				oldDir = newDir;
+				newDir = directions[(rand() % 2)];						
+			}
+		}
+		oldDir = newDir;
+		_direction = Vector2f(newDir);
+		_state = ROTATED;
+		break;
+	case CreepMovementComponent::ROTATED:
+		_state = ROAMING; //roam
+		//move(_direction * mva); //keep moving
+		break;
+	}
+
+	//ActorMovementComponent::update(dt);
+
+	//lose lives
 	if (ls::getTileAt(_parent->getPosition()) == ls::START) {
 		gui->setLives(gui->getLives()-1);
 		_parent->setAlive(false);
