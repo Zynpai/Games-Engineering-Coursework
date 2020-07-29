@@ -13,6 +13,13 @@ public:
 	static sf::Text lives;
 	static sf::Text waveTime;
 
+	//headers for different sections
+	static sf::Text Towers;
+	static sf::Text Abilities;
+
+	static sf::Text wallCooldown;
+	static sf::Text tremorCooldown;
+
 	static sf::Text Basic;
 	static sf::Text Fire;
 	static sf::Text Lightning;
@@ -25,6 +32,8 @@ public:
 	int getLives();
 
 	void updateTimer(int Time);
+	void updateWall(int Time);
+	void updateTremor(int Time);
 
 	void update(double dt);
 

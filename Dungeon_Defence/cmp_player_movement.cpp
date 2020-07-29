@@ -58,10 +58,42 @@ void PlayerMovementComponent::update(double dt) {
 		//Tremor ability
 		if (tremorCooldown <= 0.0f) {
 			Tremor->setPosition(Vector2f(Mouse::getPosition()));
+			Tremor->setAlive(true);
+			Tremor->setVisible(true);
+			for(int i = 0; i < Creeplist.size(); i++)
+			{
+				//if in range of the tremor, do damage and slow
+				if (sqrt(pow(Tremor->getPosition().x - Creeplist.at(i)->getPosition().x, 2)) <= 100 && sqrt(pow(Tremor->getPosition().y - Creeplist.at(i)->getPosition().y, 2)) <= 100) {
+					creepComponentlist.at(i)->health = creepComponentlist.at(i)->health - 30;
+					//if you killed it, get the reward, if not, cripple its speed and add it to the list
+					if (creepComponentlist.at(i)->health <= 0 && Creeplist.at(i)->isAlive()) {
+						
+						gui->setMoney(gui->getMoney() + creepComponentlist.at(i)->reward);
+						Creeplist.at(i)->setAlive(false);
+						Creeplist.at(i)->setVisible(false);
+						
+					}
+					else {
+						creepComponentlist.at(i)->setSpeed(creepComponentlist.at(i)->getSpeed() / 2);
+						TremorList.push_back(creepComponentlist.at(i));
+					}
+					
+				}
+			}
 
 			tremorCooldown = 5.0f;
 		}
 	}
+	//reset the speed of affected creeps
+	if (tremorCooldown <= 2.0f) {
+		Tremor->setAlive(false);
+		Tremor->setVisible(false);
+		for (int i = 0; i < TremorList.size(); i++) {
+			TremorList.at(i)->setSpeed(TremorList.at(i)->getSpeed()*2);
+		}
+		TremorList.clear();
+	}
+
 	//hotkeys for turrets
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
 		Tcontrol->updateStored("basic");
@@ -83,8 +115,16 @@ void PlayerMovementComponent::update(double dt) {
 	}
 	if (wallCooldown > 0.0f) {
 		wallCooldown = wallCooldown - dt;
+		if (wallCooldown < 0) {
+			wallCooldown = 0.0f;
+		}
+		gui->updateWall(floor(wallCooldown));
 	}
 	if (tremorCooldown > 0.0f) {
 		tremorCooldown = tremorCooldown - dt;
+		if (tremorCooldown < 0) {
+			tremorCooldown = 0.0f;
+		}
+		gui->updateTremor(floor(tremorCooldown));
 	}
 }

@@ -10,6 +10,12 @@ sf::Text GUI::money;
 sf::Text GUI::lives;
 sf::Text GUI::waveTime;
 
+sf::Text GUI::Towers;
+sf::Text GUI::Abilities;
+
+sf::Text GUI::tremorCooldown;
+sf::Text GUI::wallCooldown;
+
 sf::Text GUI::Basic;
 sf::Text GUI::Fire;
 sf::Text GUI::Lightning;
@@ -66,6 +72,34 @@ GUI::GUI() {
 	Lightning.setPosition(1630, 410);
 	Lightning.setOutlineColor(Color::Black);
 	Lightning.setOutlineThickness(1);
+
+	Towers.setCharacterSize(35);
+	Towers.setFont(font);
+	Towers.setString("TOWERS");
+	Towers.setFillColor(Color::Black);
+	Towers.setPosition(1630, 110);
+
+	Abilities.setCharacterSize(35);
+	Abilities.setFont(font);
+	Abilities.setString("ABILITES");
+	Abilities.setFillColor(Color::Black);
+	Abilities.setPosition(1630, 860);
+
+	tremorCooldown.setCharacterSize(25);
+	tremorCooldown.setFont(font);
+	tremorCooldown.setString("Tremor (2): 0s");
+	tremorCooldown.setFillColor(Color::Green);
+	tremorCooldown.setPosition(1630, 940);
+	tremorCooldown.setOutlineColor(Color::Black);
+	tremorCooldown.setOutlineThickness(1);
+
+	wallCooldown.setCharacterSize(25);
+	wallCooldown.setFont(font);
+	wallCooldown.setString("Earth Wall (1): 0s");
+	wallCooldown.setFillColor(Color::Green);
+	wallCooldown.setPosition(1630, 910);
+	wallCooldown.setOutlineColor(Color::Black);
+	wallCooldown.setOutlineThickness(1);
 }
 
 
@@ -89,6 +123,26 @@ void GUI::setMoney(int cash) {
 
 void GUI::updateTimer(int Time){
 	waveTime.setString("Time until next wave: "+ to_string(Time) +"s");
+}
+void GUI::updateWall(int Time) {
+	
+	if (time == 0) {
+		wallCooldown.setFillColor(Color::Green);
+	}
+	else {
+		wallCooldown.setFillColor(Color::Yellow);
+	}
+	wallCooldown.setString("Earth Wall (1): " + to_string(Time) + "s");
+}
+void GUI::updateTremor(int Time) {
+	
+	if (time == 0) {
+		tremorCooldown.setFillColor(Color::Green);
+	}
+	else {
+		tremorCooldown.setFillColor(Color::Yellow);
+	}
+	tremorCooldown.setString("Tremor (2): " + to_string(Time) + "s");
 }
 
 void GUI::update(double dt) {
@@ -125,4 +179,8 @@ void GUI::Render(RenderWindow &window) {
 	window.draw(Basic);
 	window.draw(Fire);
 	window.draw(Lightning);
+	window.draw(Towers);
+	window.draw(Abilities);
+	window.draw(tremorCooldown);
+	window.draw(wallCooldown);
 }

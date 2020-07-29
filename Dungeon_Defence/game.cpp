@@ -191,15 +191,22 @@ void GameScene::load() {
 	player->setPosition(Vector2f(600, 400));
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
-	
+	//for tremor ability
+	a->Creeplist = wControl->Creeplist;
+	a->creepComponentlist = wControl->Componentlist;
+	a->gui = gameGUI;
 
 	a->Tremor = make_shared<Entity>();
 	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
 	//an abombination, but a needed one (afaik)
 	auto b = a->Tremor->addComponent<ShapeComponent>();
-	b->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
-	b->getShape().setOrigin(Vector2f(25.0f, 25.0f));
-	b->getShape().setFillColor(Color::Red);
+	b->setShape<RectangleShape>(Vector2f(200.0f, 200.0f));
+	b->getShape().setOrigin(Vector2f(100.0f, 100.0f));
+	a->Tremor->setAlive(false);
+	a->Tremor->setVisible(false);
+	Color transparent_red(200, 0, 0, 150);
+	b->getShape().setFillColor(transparent_red);
+
 
 	a->Wall = make_shared<Entity>();
 	a->Wall->setPosition(Vector2f(-50.0f,-50.0f));
