@@ -26,26 +26,23 @@ void PlayerMovementComponent::update(double dt) {
 
 	}
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		if (placeMode) {
-
+		
+		//Basic attack
+		if (shotCooldown <= 0.0f) {
+			auto bullet = Bulletlist.at(bulletpointer);
+			auto a = Componentlist.at(bulletpointer);
+			Vector2f MousePos = Vector2f(Mouse::getPosition());
+			float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
+			Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
+			a->VecTarget = direction;
+			a->move(_parent->getPosition() - bullet->getPosition());
+			bulletpointer++;
+			if (bulletpointer >= 5) { bulletpointer = 0; }
+			shotCooldown = 1.0f;
+			bullet->setAlive(true);
+			bullet->setVisible(true);
 		}
-		else{ 
-			//Basic attack
-			if (shotCooldown <= 0.0f) {
-				auto bullet = Bulletlist.at(bulletpointer);
-				auto a = Componentlist.at(bulletpointer);
-				Vector2f MousePos = Vector2f(Mouse::getPosition());
-				float magnitude = sqrt(pow(MousePos.x - _parent->getPosition().x, 2) + pow(MousePos.y - _parent->getPosition().y, 2));
-				Vector2f direction = (MousePos - _parent->getPosition()) / (magnitude);
-				a->VecTarget = direction;
-				a->move(_parent->getPosition() - bullet->getPosition());
-				bulletpointer++;
-				if (bulletpointer >= 5) { bulletpointer = 0; }
-				shotCooldown = 1.0f;
-				bullet->setAlive(true);
-				bullet->setVisible(true);
-			}
-		}
+		
 		
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Num1)) {
@@ -61,22 +58,54 @@ void PlayerMovementComponent::update(double dt) {
 		//Tremor ability
 		if (tremorCooldown <= 0.0f) {
 			Tremor->setPosition(Vector2f(Mouse::getPosition()));
+			Tremor->setAlive(true);
+			Tremor->setVisible(true);
+			for(int i = 0; i < Creeplist.size(); i++)
+			{
+				//if in range of the tremor, do damage and slow
+				if (sqrt(pow(Tremor->getPosition().x - Creeplist.at(i)->getPosition().x, 2)) <= 100 && sqrt(pow(Tremor->getPosition().y - Creeplist.at(i)->getPosition().y, 2)) <= 100) {
+					creepComponentlist.at(i)->health = creepComponentlist.at(i)->health - 30;
+					//if you killed it, get the reward, if not, cripple its speed and add it to the list
+					if (creepComponentlist.at(i)->health <= 0 && Creeplist.at(i)->isAlive()) {
+						
+						gui->setMoney(gui->getMoney() + creepComponentlist.at(i)->reward);
+						Creeplist.at(i)->setAlive(false);
+						Creeplist.at(i)->setVisible(false);
+						
+					}
+					else {
+						creepComponentlist.at(i)->setSpeed(creepComponentlist.at(i)->getSpeed() / 2);
+						TremorList.push_back(creepComponentlist.at(i));
+					}
+					
+				}
+			}
 
 			tremorCooldown = 5.0f;
 		}
 	}
+	//reset the speed of affected creeps
+	if (tremorCooldown <= 2.0f) {
+		Tremor->setAlive(false);
+		Tremor->setVisible(false);
+		for (int i = 0; i < TremorList.size(); i++) {
+			TremorList.at(i)->setSpeed(TremorList.at(i)->getSpeed()*2);
+		}
+		TremorList.clear();
+	}
 
+	//hotkeys for turrets
 	if (Keyboard::isKeyPressed(Keyboard::E)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("basic");
+		Tcontrol->updateStored("basic");
+		Tcontrol->placementMode = true;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::R)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("fireball");
+		Tcontrol->updateStored("fireball");
+		Tcontrol->placementMode = true;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::T)) {
-		//turret testing hotkey
-		Tcontrol->Placeturret("lightning");
+		Tcontrol->updateStored("lightning");
+		Tcontrol->placementMode = true;
 	}
 
 
@@ -86,8 +115,16 @@ void PlayerMovementComponent::update(double dt) {
 	}
 	if (wallCooldown > 0.0f) {
 		wallCooldown = wallCooldown - dt;
+		if (wallCooldown < 0) {
+			wallCooldown = 0.0f;
+		}
+		gui->updateWall(floor(wallCooldown));
 	}
 	if (tremorCooldown > 0.0f) {
 		tremorCooldown = tremorCooldown - dt;
+		if (tremorCooldown < 0) {
+			tremorCooldown = 0.0f;
+		}
+		gui->updateTremor(floor(tremorCooldown));
 	}
 }

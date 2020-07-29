@@ -11,12 +11,15 @@ public:
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
 
+	std::vector<std::shared_ptr<Entity>> Creeplist;
+	std::vector<std::shared_ptr<CreepMovementComponent>> creepComponentlist;
+	//stores all creeps that were hit by tremor, so that i can reset their speed
+	std::vector<std::shared_ptr<CreepMovementComponent>> TremorList;
+
 	std::shared_ptr<Entity> Wall;
 	std::shared_ptr<Entity> Tremor;
 	std::shared_ptr<TurretController> Tcontrol;
-	//used to toggle between placing towers and shooting
-	bool placeMode = false;
-	std::string storedTower;
+	std::shared_ptr<GUI> gui;
 
 	int bulletpointer = 0;
 	float shotCooldown = 0.0f;

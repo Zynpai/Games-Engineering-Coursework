@@ -13,26 +13,27 @@ public:
 	static sf::Text lives;
 	static sf::Text waveTime;
 
+	//headers for different sections
+	static sf::Text Towers;
+	static sf::Text Abilities;
+
+	static sf::Text wallCooldown;
+	static sf::Text tremorCooldown;
+
 	static sf::Text Basic;
 	static sf::Text Fire;
 	static sf::Text Lightning;
 
 	void setMoney(int money);
 	int getMoney();
-	float Buttoncooldown = 0.1;
-	////used for button functionality
-	//shared_ptr<PlayerMovementComponent> player;
-
-	shared_ptr<Entity> Basicbutton;
-	shared_ptr<Entity> Fireballbutton;
-	shared_ptr<Entity> Lightningbutton;
-	//the turret ghost that tells you where the turret will go
-	shared_ptr<Entity> Ghost;
+	
 
 	void setLives(int lives);
 	int getLives();
 
 	void updateTimer(int Time);
+	void updateWall(int Time);
+	void updateTremor(int Time);
 
 	void update(double dt);
 

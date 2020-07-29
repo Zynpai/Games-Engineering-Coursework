@@ -38,6 +38,24 @@ public:
 	void Placeturret(string type);
 
 	void update(double dt);
+
+	float Buttoncooldown = 0.2f;
+	bool placementMode = false;
+	string storedTurret;
+
+	void updateStored(string turret);
+
+	shared_ptr<Entity> Basicbutton;
+	shared_ptr<Entity> Fireballbutton;
+	shared_ptr<Entity> Lightningbutton;
+	//the turret ghost that tells you where the turret will go
+	shared_ptr<Entity> Ghost;
+	shared_ptr<ShapeComponent> GhostComponent;
+	//a ghost to show the turret's range
+	shared_ptr<Entity> RGhost;
+	shared_ptr<ShapeComponent> RGhostComponent;
+	Color grey;
+	Color red;
 };
 
 

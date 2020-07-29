@@ -14,7 +14,18 @@
 using namespace std;
 using namespace sf;
 
-TurretController::TurretController() {}
+TurretController::TurretController() {
+	grey.r = 30;
+	grey.g = 30;
+	grey.b = 30;
+	grey.a = 150;
+
+	red.r = 200;
+	red.g = 0;
+	red.b = 0;
+	red.a = 150;
+
+}
 
 void TurretController::Placeturret(string type) {
 	//only place a turret if you havent hit the limit yet, can adjust limit later
@@ -114,6 +125,24 @@ void TurretController::Placeturret(string type) {
 	}
 }
 
+void TurretController::updateStored(string turret) {
+	storedTurret = turret;
+	if(storedTurret == "basic") {
+		RGhostComponent->setShape<CircleShape>(200);
+		RGhostComponent->getShape().setOrigin(Vector2f(200, 200));
+		RGhostComponent->getShape().setFillColor(grey);
+	}
+	else if (storedTurret == "fireball") {
+		RGhostComponent->setShape<CircleShape>(300);
+		RGhostComponent->getShape().setOrigin(Vector2f(300, 300));
+		RGhostComponent->getShape().setFillColor(grey);
+	}
+	else if (storedTurret == "lightning") {
+		RGhostComponent->setShape<CircleShape>(500);
+		RGhostComponent->getShape().setOrigin(Vector2f(500, 500));
+		RGhostComponent->getShape().setFillColor(grey);
+	}
+}
 
 void TurretController::update(double dt) {
 	if (cooldown > 0.0f) {
@@ -123,6 +152,94 @@ void TurretController::update(double dt) {
 		}
 
 	}
+	if (placementMode) {
+
+		Ghost->setAlive(true);
+		Ghost->setVisible(true);
+		RGhost->setAlive(true);
+		RGhost->setVisible(true);
+		int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
+		int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
+		Vector2f Tile = Vector2f(xcomponent, ycomponent);
+	
+		//put the ghost hovering over the nearest tile
+		Ghost->setPosition(Tile);
+		RGhost->setPosition(Tile);
+		//depending on if the placement is valid, change the color of the ghost accordingly
+			if (ls::getTileAt(Tile) != ls::ENEMY) {
+				GhostComponent->getShape().setFillColor(red);
+			}
+			else {
+				bool valid = true;
+				for (int i = 0; i < Occupied.size(); i++) {
+					if (Occupied.at(i) == Tile) {
+						valid = false;
+					}
+				}
+				if (valid) {
+					GhostComponent->getShape().setFillColor(grey);
+				}
+				else {
+					GhostComponent->getShape().setFillColor(red);
+				}
+			}
+	}
+
+	//buttons for turrets
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+		//if currently placing a turret, ignore the buttons
+		if (placementMode) {
+			//handle placements for turrets
+			//dont immidiatly check for placement, or it will instantly fail
+			if (Buttoncooldown <= 0) {
+				Placeturret(storedTurret);
+				Ghost->setAlive(false);
+				Ghost->setVisible(false);
+				RGhost->setAlive(false);
+				RGhost->setVisible(false);
+				placementMode = false;
+			}
+			
+		}
+		else {
+
+
+			//check if it clicked a button
+			if (sqrt(pow(Mouse::getPosition().x - Basicbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Basicbutton->getPosition().y, 2)) <= 50) {
+				//do something with basic turret
+				if (Buttoncooldown <= 0) {
+					storedTurret = "basic";
+					placementMode = true;
+					Buttoncooldown = 0.2f;
+				}
+
+			}
+			else if (sqrt(pow(Mouse::getPosition().x - Fireballbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Fireballbutton->getPosition().y, 2)) <= 50) {
+				//do something with fire turret
+				if (Buttoncooldown <= 0) {
+					storedTurret = "fireball";
+					placementMode = true;
+					Buttoncooldown = 0.2f;
+				}
+			}
+			else if (sqrt(pow(Mouse::getPosition().x - Lightningbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Lightningbutton->getPosition().y, 2)) <= 50) {
+				//do something with lightning turret
+				if (Buttoncooldown <= 0) {
+					storedTurret = "lightning";
+					placementMode = true;
+					Buttoncooldown = 0.2f;
+				}
+			}
+
+		}
+	
+	}
+
+	if (Buttoncooldown > 0) {
+
+		Buttoncooldown = Buttoncooldown - dt;
+	}
+	if (Buttoncooldown < 0) { Buttoncooldown = 0; }
 }
 
 

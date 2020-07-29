@@ -89,7 +89,7 @@ void GameScene::load() {
 	sh->getShape().setOrigin(Vector2f(100,50));
 	Basicbutton->setPosition(Vector2f(1730, 200));
 	_em.list.push_back(Basicbutton);
-	gameGUI->Basicbutton = Basicbutton;
+	tControl->Basicbutton = Basicbutton;
 
 	auto Fireballbutton = make_shared<Entity>();
 	auto sh2 = Fireballbutton->addComponent<ShapeComponent>();
@@ -98,7 +98,7 @@ void GameScene::load() {
 	sh2->getShape().setOrigin(Vector2f(100, 50));
 	Fireballbutton->setPosition(Vector2f(1730, 350));
 	_em.list.push_back(Fireballbutton);
-	gameGUI->Fireballbutton = Fireballbutton;
+	tControl->Fireballbutton = Fireballbutton;
 
 	auto Lightningbutton = make_shared<Entity>();
 	auto sh3 = Lightningbutton->addComponent<ShapeComponent>();
@@ -107,17 +107,28 @@ void GameScene::load() {
 	sh3->getShape().setOrigin(Vector2f(100, 50));
 	Lightningbutton->setPosition(Vector2f(1730, 500));
 	_em.list.push_back(Lightningbutton);
-	gameGUI->Lightningbutton = Lightningbutton;
+	tControl->Lightningbutton = Lightningbutton;
 
 	//ghost is the only one that should keep a shape, sprites would be preffered for buttons
 	auto Ghost = make_shared<Entity>();
 	auto sh4 = Ghost->addComponent<ShapeComponent>();
 	sh4->setShape<RectangleShape>(Vector2f(50, 50));
+	Color transparent_grey(30,30,30,150);
+	sh4->getShape().setFillColor(transparent_grey);
 	sh4->getShape().setOrigin(Vector2f(25, 25));
 	_em.list.push_back(Ghost);
 	Ghost->setAlive(false);
 	Ghost->setVisible(false);
-	gameGUI->Ghost = Ghost;
+	tControl->Ghost = Ghost;
+	tControl->GhostComponent = sh4;
+
+	auto RGhost = make_shared<Entity>();
+	auto sh5 = RGhost->addComponent<ShapeComponent>();
+	_em.list.push_back(RGhost);
+	RGhost->setAlive(false);
+	RGhost->setVisible(false);
+	tControl->RGhost = RGhost;
+	tControl->RGhostComponent = sh5;
 
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
@@ -180,15 +191,22 @@ void GameScene::load() {
 	player->setPosition(Vector2f(600, 400));
 	a->Bulletlist = playerBullets;
 	a->Componentlist = BulletComponents;
-	
+	//for tremor ability
+	a->Creeplist = wControl->Creeplist;
+	a->creepComponentlist = wControl->Componentlist;
+	a->gui = gameGUI;
 
 	a->Tremor = make_shared<Entity>();
 	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
 	//an abombination, but a needed one (afaik)
 	auto b = a->Tremor->addComponent<ShapeComponent>();
-	b->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
-	b->getShape().setOrigin(Vector2f(25.0f, 25.0f));
-	b->getShape().setFillColor(Color::Red);
+	b->setShape<RectangleShape>(Vector2f(200.0f, 200.0f));
+	b->getShape().setOrigin(Vector2f(100.0f, 100.0f));
+	a->Tremor->setAlive(false);
+	a->Tremor->setVisible(false);
+	Color transparent_red(200, 0, 0, 150);
+	b->getShape().setFillColor(transparent_red);
+
 
 	a->Wall = make_shared<Entity>();
 	a->Wall->setPosition(Vector2f(-50.0f,-50.0f));
