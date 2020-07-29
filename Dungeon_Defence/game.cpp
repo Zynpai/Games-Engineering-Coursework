@@ -78,6 +78,7 @@ void GameScene::load() {
 	//sf::Sprite sprite;
 	sMap.setTexture(map);
 	sMap.setPosition(0, 0);
+
 	tControl->gui = gameGUI;
 	wControl->gui = gameGUI;
 	//initialise buttons and ghost for gui
@@ -139,11 +140,7 @@ void GameScene::load() {
 		s->setShape<CircleShape>(20.0f);
 		s->getShape().setFillColor(Color::Magenta);
 		s->getShape().setOrigin(Vector2f(10.0f,10.0f));
-		//Texture blankTex;
-		//if (!blankTex.create(32, 32)) {
-			//error
-		//	throw string("why did this fail?");
-		//}
+		//footman.loadFromFile("res/Map2.png");
 		//s->sprite->setTexture(blankTex);
 		
 

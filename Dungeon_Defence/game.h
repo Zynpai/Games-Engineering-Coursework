@@ -26,6 +26,8 @@ private:
 public:
 	sf::Texture map;
 	sf::Sprite sMap;
+	//sf::Texture footman ;
+	//sf::Texture sfootman;
 	GameScene() = default;
 	void update(double dt) override;
 	void render() override;
