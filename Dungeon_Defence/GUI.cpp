@@ -53,7 +53,7 @@ GUI::GUI() {
 	Basic.setFont(font);
 	Basic.setString("Archer   $20 (E)");
 	Basic.setFillColor(Color::Yellow);
-	Basic.setPosition(1630, 110);
+	Basic.setPosition(1630, 160);
 	Basic.setOutlineColor(Color::Black);
 	Basic.setOutlineThickness(1);
 
@@ -61,7 +61,7 @@ GUI::GUI() {
 	Fire.setFont(font);
 	Fire.setString("Fireball   $50 (R)");
 	Fire.setFillColor(Color::Yellow);
-	Fire.setPosition(1630, 260);
+	Fire.setPosition(1630, 310);
 	Fire.setOutlineColor(Color::Black);
 	Fire.setOutlineThickness(1);
 
@@ -69,7 +69,7 @@ GUI::GUI() {
 	Lightning.setFont(font);
 	Lightning.setString("Lightning   $40 (T)");
 	Lightning.setFillColor(Color::Yellow);
-	Lightning.setPosition(1630, 410);
+	Lightning.setPosition(1630, 460);
 	Lightning.setOutlineColor(Color::Black);
 	Lightning.setOutlineThickness(1);
 

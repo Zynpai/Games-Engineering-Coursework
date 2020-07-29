@@ -31,12 +31,12 @@ public:
 //for enemy use
 class CreepMovementComponent : public ActorMovementComponent {
 protected:
-	sf::Vector2f _direction;
 	enum STATE { ROAMING, ROTATING, ROTATED };
 	STATE _state;
 	sf::Vector2i oldDir = sf::Vector2i{ 0, 1 };
 
 public:
+	sf::Vector2f _direction;
 	float health;
 	//if true, airborne, if false, grounded
 	bool flying;

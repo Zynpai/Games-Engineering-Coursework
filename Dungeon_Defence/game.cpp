@@ -87,7 +87,7 @@ void GameScene::load() {
 	sh->setShape<RectangleShape>(Vector2f(200,100));
 	sh->getShape().setFillColor(Color::Black);
 	sh->getShape().setOrigin(Vector2f(100,50));
-	Basicbutton->setPosition(Vector2f(1730, 200));
+	Basicbutton->setPosition(Vector2f(1730, 250));
 	_em.list.push_back(Basicbutton);
 	tControl->Basicbutton = Basicbutton;
 
@@ -96,7 +96,7 @@ void GameScene::load() {
 	sh2->setShape<RectangleShape>(Vector2f(200, 100));
 	sh2->getShape().setFillColor(Color::Black);
 	sh2->getShape().setOrigin(Vector2f(100, 50));
-	Fireballbutton->setPosition(Vector2f(1730, 350));
+	Fireballbutton->setPosition(Vector2f(1730, 400));
 	_em.list.push_back(Fireballbutton);
 	tControl->Fireballbutton = Fireballbutton;
 
@@ -105,7 +105,7 @@ void GameScene::load() {
 	sh3->setShape<RectangleShape>(Vector2f(200, 100));
 	sh3->getShape().setFillColor(Color::Black);
 	sh3->getShape().setOrigin(Vector2f(100, 50));
-	Lightningbutton->setPosition(Vector2f(1730, 500));
+	Lightningbutton->setPosition(Vector2f(1730, 550));
 	_em.list.push_back(Lightningbutton);
 	tControl->Lightningbutton = Lightningbutton;
 

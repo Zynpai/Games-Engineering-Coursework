@@ -208,7 +208,7 @@ void TurretController::update(double dt) {
 			if (sqrt(pow(Mouse::getPosition().x - Basicbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Basicbutton->getPosition().y, 2)) <= 50) {
 				//do something with basic turret
 				if (Buttoncooldown <= 0) {
-					storedTurret = "basic";
+					updateStored("basic");
 					placementMode = true;
 					Buttoncooldown = 0.2f;
 				}
@@ -217,7 +217,7 @@ void TurretController::update(double dt) {
 			else if (sqrt(pow(Mouse::getPosition().x - Fireballbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Fireballbutton->getPosition().y, 2)) <= 50) {
 				//do something with fire turret
 				if (Buttoncooldown <= 0) {
-					storedTurret = "fireball";
+					updateStored("fireball");
 					placementMode = true;
 					Buttoncooldown = 0.2f;
 				}
@@ -225,7 +225,7 @@ void TurretController::update(double dt) {
 			else if (sqrt(pow(Mouse::getPosition().x - Lightningbutton->getPosition().x, 2)) <= 100 && sqrt(pow(Mouse::getPosition().y - Lightningbutton->getPosition().y, 2)) <= 50) {
 				//do something with lightning turret
 				if (Buttoncooldown <= 0) {
-					storedTurret = "lightning";
+					updateStored("lightning");
 					placementMode = true;
 					Buttoncooldown = 0.2f;
 				}

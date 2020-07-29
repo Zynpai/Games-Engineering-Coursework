@@ -49,6 +49,7 @@ void WaveController::update(double dt) {
 		if (spacing <= 0) {
 
 			Creeplist.at(creepPointer)->setPosition(ls::findTiles(ls::END)[1]);
+			Componentlist.at(creepPointer)->_direction = Vector2f(Vector2i{ 0, 1 });
 			//basic health scale, can be changed later
 			//every 5th wave is flying, can be adjusted or changed
 			if (int(waveNo) % 5 == 0) {
