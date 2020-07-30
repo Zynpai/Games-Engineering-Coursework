@@ -268,6 +268,7 @@ void GameScene::load() {
 		b->Targetlist = TargetList;
 		b->creepComponentlist = wControl->Componentlist;
 		tControl->Turretlist.push_back(turret);
+		tControl->Shapelist.push_back(x);
 		tControl->Componentlist.push_back(b);
 		_em.list.push_back(turret);
 	}

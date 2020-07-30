@@ -59,7 +59,7 @@ void TurretController::Placeturret(string type) {
 							turret->setPosition(Tile);
 							turret->setAlive(true);
 							turret->setVisible(true);
-
+							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Yellow);
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(6);
 							tcomp->setRate(0.7);
@@ -84,6 +84,7 @@ void TurretController::Placeturret(string type) {
 							turret->setAlive(true);
 							turret->setVisible(true);
 
+							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Red);
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(40);
 							tcomp->setRate(1.5);
@@ -106,6 +107,8 @@ void TurretController::Placeturret(string type) {
 							turret->setPosition(Tile);
 							turret->setAlive(true);
 							turret->setVisible(true);
+
+							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Cyan);
 
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(30);
