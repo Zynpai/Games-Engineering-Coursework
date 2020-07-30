@@ -174,12 +174,16 @@ void CreepMovementComponent::update(double dt) {
 		}
 		else
 		{
-			while (ls::getTileAt(pos + Vector2f(newDir) * mva) == ls::ENEMY && newDir == oldDir) {
-				oldDir = newDir;
-				newDir = directions[(rand() % 2)];						
+			if(ls::getTileAt(pos + Vector2f(directions[1]) * mva) != ls::ENEMY && ls::getTileAt(pos + Vector2f(directions[0]) * mva) == ls::ENEMY) {
+				//oldDir = newDir;
+				newDir = directions[1];						
+			}
+			else
+			{
+				newDir = directions[0];
 			}
 		}
-		oldDir = newDir;
+		//oldDir = newDir;
 		_direction = Vector2f(newDir);
 		_state = ROTATED;
 		break;
