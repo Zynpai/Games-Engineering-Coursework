@@ -132,13 +132,14 @@ void GameScene::load() {
 	tControl->RGhost = RGhost;
 	tControl->RGhostComponent = sh5;
 
+	auto wall = make_shared<Entity>();
 	std::vector<std::shared_ptr<Entity>> TargetList;
 	//now to make a list of reusable creeps, 20 should suffice
 	for (int l = 0; l < 20; l++) {
 		auto creep = make_shared<Entity>();
 		auto s = creep->addComponent<ShapeComponent>();
 		auto m = creep->addComponent<CreepMovementComponent>();
-
+		//settup the shape
 		s->setShape<CircleShape>(20.0f);
 		s->getShape().setFillColor(Color::Magenta);
 		s->getShape().setOrigin(Vector2f(20.0f,40.0f));
@@ -148,11 +149,13 @@ void GameScene::load() {
 
 		creep->setAlive(false);
 		creep->setVisible(false);
+		m->wall = wall;
 		m->gui = gameGUI;
-
+		//add everything to their respective lists
 		_em.list.push_back(creep);
 		TargetList.push_back(creep);
 		wControl->Creeplist.push_back(creep);
+		wControl->Shapelist.push_back(s);
 		wControl->Componentlist.push_back(m);
 		//wControl->spriteList.push_back(s);
 
@@ -210,12 +213,13 @@ void GameScene::load() {
 	b->getShape().setFillColor(transparent_red);
 
 
-	a->Wall = make_shared<Entity>();
+	a->Wall = wall;
 	a->Wall->setPosition(Vector2f(-50.0f,-50.0f));
 	auto c = a->Wall->addComponent<ShapeComponent>();
-	c->setShape<RectangleShape>(Vector2f(50.0f, 50.0f));
-	c->getShape().setOrigin(Vector2f(25.0f, 25.0f));
-	c->getShape().setFillColor(Color::Green);
+	c->setShape<RectangleShape>(Vector2f(80.0f, 80.0f));
+	c->getShape().setOrigin(Vector2f(40.0f, 40.0f));
+	sf::Color brown(210,105,30,255);
+	c->getShape().setFillColor(brown);
 
 	_em.list.push_back(player);
 	_em.list.push_back(a->Tremor);

@@ -38,6 +38,8 @@ protected:
 
 public:
 	sf::Vector2f _direction;
+	//wall for wall ability checks
+	shared_ptr<Entity> wall;
 	float health;
 	//if true, airborne, if false, grounded
 	bool flying;

@@ -165,7 +165,11 @@ void CreepMovementComponent::update(double dt) {
 			_state = ROTATING; //start rotating
 		}
 		else {
-			move(_direction * mva); //keep moving
+			//check that the player wall isnt infront using distance equasion (y is -20 since origin is 20 below middle of creep)
+			if (!(sqrt(pow(newPos.x - wall->getPosition().x, 2)) <= 40 && sqrt(pow((newPos.y -20) - wall->getPosition().y, 2)) <= 40 && wall->isAlive())) {
+
+				move(_direction * mva); //keep moving
+			}
 		}
 		break;
 	case CreepMovementComponent::ROTATING:

@@ -59,6 +59,7 @@ void WaveController::update(double dt) {
 				Componentlist.at(creepPointer)->health = 5 * waveNo;
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(400.0f);
+				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Cyan);
 			}
 			else if (int(waveNo) % 2 == 0) {
 				//rogue, fast but frail
@@ -67,6 +68,7 @@ void WaveController::update(double dt) {
 				Componentlist.at(creepPointer)->health = 7 * waveNo;
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(300.0f);
+				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Yellow);
 			}
 			else {
 				//footman, slow but tough
@@ -77,6 +79,7 @@ void WaveController::update(double dt) {
 				Componentlist.at(creepPointer)->armor = floor(0.25*waveNo);
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(200.0f);
+				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Red);
 			}
 			//wave 1 & 2 = 1, 3 & 4 = 2 etc....
 			Componentlist.at(creepPointer)->reward = floor(0.51 + waveNo / 2);
