@@ -13,6 +13,8 @@ class MenuScene : public Scene {
 private:
 
 public:
+	sf::Texture Menu;
+	sf::Sprite sMenu;
 	MenuScene() = default;
 	void update(double dt) override;
 	void render() override;
