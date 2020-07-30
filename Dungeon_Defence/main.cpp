@@ -15,11 +15,14 @@ using namespace std;
 
 shared_ptr<Scene> gameScene;
 shared_ptr<Scene> menuScene;
+shared_ptr<Scene> endScene;
 shared_ptr<Scene> activeScene;
 
 void load(RenderWindow &window) {
 	gameScene.reset(new GameScene());
 	menuScene.reset(new MenuScene());
+	endScene.reset(new EndScene());
+	endScene->load();
 	gameScene->load();
 	menuScene->load();
 	activeScene = menuScene;

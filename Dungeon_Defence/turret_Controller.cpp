@@ -26,6 +26,11 @@ TurretController::TurretController() {
 	red.a = 150;
 
 }
+void TurretController::reset() {
+	Occupied.clear();
+	turretpointer = 0;
+	placementMode = false;
+}
 
 void TurretController::Placeturret(string type) {
 	//only place a turret if you havent hit the limit yet, can adjust limit later

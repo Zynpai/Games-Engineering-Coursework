@@ -36,21 +36,11 @@ void MenuScene::update(double dt) {
 
 void MenuScene::render() {
 	Scene::render();
-	Renderer::getWindow().draw(text);
+	
 }
 
 void MenuScene::load() {
-	if (!font.loadFromFile("res/arial.ttf")) {
-		//it broke
-		throw string("Could not load font file :(");
-	}
-	text.setFont(font);
-	text.setString("Press spacebar to start!");
-	text.setCharacterSize(40);
-	text.setColor(Color::White);
-	text.setOutlineThickness(1);
-	text.setOutlineColor(Color::Black);
-	text.setPosition(700,900);
+	
 	//adding a square so menu isnt just a black void
 	auto menuSquare = make_shared<Entity>();
 	auto s = menuSquare->addComponent<ShapeComponent>();
@@ -63,6 +53,9 @@ void MenuScene::load() {
 }
 
 void GameScene::update(double dt) {
+	if (gameGUI->getLives() <= 0) {
+		activeScene = endScene;
+	}
 	Scene::update(dt);
 
 	tControl->update(dt);
@@ -282,4 +275,37 @@ void GameScene::load() {
 	a->Tcontrol = tControl;
 
 	ls::loadLevelFile("res/levels/maze_3.txt", 80.0f);
+}
+
+
+void EndScene::update(double dt) {
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+
+		//this should clear out the memory? i hope
+		wControl.reset(new WaveController);
+		gameGUI.reset(new GUI);
+		tControl.reset(new TurretController);
+		gameScene.reset(new GameScene());
+		gameScene->load();
+		activeScene = gameScene;
+	}
+	Scene::update(dt);
+	text.setString(to_string(int(wControl->waveNo - 1)));
+}
+
+void EndScene::render() {
+	Scene::render();
+	Renderer::getWindow().draw(text);
+}
+void EndScene::load() {
+	if (!font.loadFromFile("res/arial.ttf")) {
+		//it broke
+		throw string("Could not load font file :(");
+	}
+	text.setFont(font);
+	text.setCharacterSize(40);
+	text.setColor(Color::Red);
+	text.setOutlineThickness(1);
+	text.setOutlineColor(Color::Black);
+	text.setPosition(900, 700);
 }

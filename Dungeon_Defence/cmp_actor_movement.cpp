@@ -1,6 +1,7 @@
 #pragma once
 #include "cmp_actor_movement.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Player.h"
 #include "ecm.h"
 #include "levelsystem.h"
@@ -54,7 +55,9 @@ void ActorMovementComponent::setSpeed(float speed) { _speed = speed; }
 
 
 BulletMovementComponent::BulletMovementComponent(Entity* p)
-	: ActorMovementComponent(p) {}
+	: ActorMovementComponent(p) {
+
+}
 
 void BulletMovementComponent::update(double dt) {
 	if (targeted) {

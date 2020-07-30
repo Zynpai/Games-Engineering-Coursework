@@ -38,6 +38,7 @@ public:
 	void Placeturret(string type);
 
 	void update(double dt);
+	void reset();
 
 	float Buttoncooldown = 0.2f;
 	bool placementMode = false;

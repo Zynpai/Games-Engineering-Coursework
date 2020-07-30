@@ -2,7 +2,9 @@
 
 
 PlayerMovementComponent::PlayerMovementComponent(Entity* p)
-	: ActorMovementComponent(p) {}
+	: ActorMovementComponent(p) {
+	
+}
 
 void PlayerMovementComponent::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::A)) {

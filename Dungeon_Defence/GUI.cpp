@@ -109,9 +109,6 @@ int GUI::getLives() {
 void GUI::setLives(int live) {
 	_lives = live;
 	lives.setString("Lives: "+ to_string(_lives));
-	if (_lives <=0) {
-		//game over
-	}
 }
 int GUI::getMoney() {
 	return _money;

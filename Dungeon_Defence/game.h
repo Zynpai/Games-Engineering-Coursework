@@ -5,6 +5,7 @@
 
 extern std::shared_ptr<Scene> gameScene;
 extern std::shared_ptr<Scene> menuScene;
+extern std::shared_ptr<Scene> endScene;
 extern std::shared_ptr<Scene> activeScene;
 
 
@@ -12,9 +13,19 @@ class MenuScene : public Scene {
 private:
 
 public:
+	MenuScene() = default;
+	void update(double dt) override;
+	void render() override;
+	void load() override;
+};
+
+class EndScene : public Scene {
+private:
+
+public:
 	sf::Text text;
 	sf::Font font;
-	MenuScene() = default;
+	EndScene() = default;
 	void update(double dt) override;
 	void render() override;
 	void load() override;

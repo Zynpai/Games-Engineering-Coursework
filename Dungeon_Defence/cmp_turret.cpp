@@ -2,6 +2,7 @@
 
 #include "cmp_turret.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "ecm.h"
 #include "system_renderer.h"
 #include "cmp_sprite.h"
@@ -13,7 +14,9 @@ using namespace std;
 using namespace sf;
 
 TurretComponent::TurretComponent(Entity* p)	
-	: Component(p) {}
+	: Component(p) {
+	
+}
 
 void TurretComponent::update(double dt) {
 	//increment cooldown, then check if ready to fire

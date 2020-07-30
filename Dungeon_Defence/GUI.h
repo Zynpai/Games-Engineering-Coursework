@@ -2,6 +2,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <ecm.h>
+#include "scene.h"
 //#include "cmp_player_movement.h"
 using namespace std;
 
@@ -39,6 +40,7 @@ public:
 
 	static void Render(sf::RenderWindow &window);
 
+	
 protected:
 	//starter values, can be changed later
 	int _lives = 20;

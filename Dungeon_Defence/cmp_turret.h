@@ -2,6 +2,7 @@
 #pragma once
 #include "cmp_actor_movement.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <ecm.h>
 
 
@@ -29,6 +30,7 @@ public:
 
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
+
 
 	float getRange() const;
 	void setRange(float _range);

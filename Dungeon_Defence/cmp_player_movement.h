@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <ecm.h>
 #include "cmp_actor_movement.h"
 #include "turret_Controller.h"
@@ -15,6 +16,7 @@ public:
 	std::vector<std::shared_ptr<CreepMovementComponent>> creepComponentlist;
 	//stores all creeps that were hit by tremor, so that i can reset their speed
 	std::vector<std::shared_ptr<CreepMovementComponent>> TremorList;
+
 
 	std::shared_ptr<Entity> Wall;
 	std::shared_ptr<Entity> Tremor;

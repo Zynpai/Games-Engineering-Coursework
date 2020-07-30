@@ -26,9 +26,10 @@ protected:
 
 	int creepPointer = 0;
 
+	
+public:
 	//what wave we are on, can be used for scaling and special waves, must be float for dividing
 	float waveNo = 1;
-public:
 	WaveController();
 	shared_ptr<GUI> gui;
 	//i wish i knew a better way to do this right now
