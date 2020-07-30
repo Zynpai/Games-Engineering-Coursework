@@ -12,6 +12,8 @@ class MenuScene : public Scene {
 private:
 
 public:
+	sf::Text text;
+	sf::Font font;
 	MenuScene() = default;
 	void update(double dt) override;
 	void render() override;

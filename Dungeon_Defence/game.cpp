@@ -36,9 +36,21 @@ void MenuScene::update(double dt) {
 
 void MenuScene::render() {
 	Scene::render();
+	Renderer::getWindow().draw(text);
 }
 
 void MenuScene::load() {
+	if (!font.loadFromFile("res/arial.ttf")) {
+		//it broke
+		throw string("Could not load font file :(");
+	}
+	text.setFont(font);
+	text.setString("Press spacebar to start!");
+	text.setCharacterSize(40);
+	text.setColor(Color::White);
+	text.setOutlineThickness(1);
+	text.setOutlineColor(Color::Black);
+	text.setPosition(700,900);
 	//adding a square so menu isnt just a black void
 	auto menuSquare = make_shared<Entity>();
 	auto s = menuSquare->addComponent<ShapeComponent>();
@@ -46,14 +58,11 @@ void MenuScene::load() {
 	s->setShape<RectangleShape>(Vector2f(120.0f,120.f));
 	s->getShape().setFillColor(Color::Magenta);
 	s->getShape().setOrigin(Vector2f(12.f, 12.f));
-
+	
 	_em.list.push_back(menuSquare);
 }
 
 void GameScene::update(double dt) {
-	if (Keyboard::isKeyPressed(Keyboard::Tab)) {
-		activeScene = menuScene;
-	}
 	Scene::update(dt);
 
 	tControl->update(dt);
