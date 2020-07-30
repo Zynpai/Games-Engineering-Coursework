@@ -291,11 +291,13 @@ void EndScene::update(double dt) {
 		activeScene = gameScene;
 	}
 	Scene::update(dt);
-	text.setString(to_string(int(wControl->waveNo - 1)));
+	text.setString("You survived: " + to_string(int(wControl->waveNo - 1))+" Wave(s)!");
 }
 
 void EndScene::render() {
 	Scene::render();
+	//draw the sprite and text
+	Renderer::getWindow().draw(sEnd);
 	Renderer::getWindow().draw(text);
 }
 void EndScene::load() {
@@ -303,10 +305,13 @@ void EndScene::load() {
 		//it broke
 		throw string("Could not load font file :(");
 	}
+	End.loadFromFile("res/GameOver.png");
+	sEnd.setTexture(End);
+	sEnd.setPosition(0, 0);
 	text.setFont(font);
 	text.setCharacterSize(40);
 	text.setColor(Color::Red);
 	text.setOutlineThickness(1);
 	text.setOutlineColor(Color::Black);
-	text.setPosition(900, 700);
+	text.setPosition(600, 700);
 }

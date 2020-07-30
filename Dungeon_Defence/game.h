@@ -27,6 +27,8 @@ private:
 public:
 	sf::Text text;
 	sf::Font font;
+	sf::Texture End;
+	sf::Sprite sEnd;
 	EndScene() = default;
 	void update(double dt) override;
 	void render() override;
