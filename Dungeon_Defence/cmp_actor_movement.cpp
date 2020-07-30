@@ -58,8 +58,8 @@ BulletMovementComponent::BulletMovementComponent(Entity* p)
 
 void BulletMovementComponent::update(double dt) {
 	if (targeted) {
-		float magnitude = sqrt(pow(target->getPosition().x - _parent->getPosition().x, 2) + pow(target->getPosition().y - _parent->getPosition().y, 2));
-		Vector2f direction = (target->getPosition() - _parent->getPosition()) / (magnitude);
+		float magnitude = sqrt(pow(target->getPosition().x - _parent->getPosition().x, 2) + pow((target->getPosition().y - 20) - _parent->getPosition().y, 2));
+		Vector2f direction = (Vector2f(target->getPosition().x, target->getPosition().y-20) - _parent->getPosition()) / (magnitude);
 		move(direction*_speed*float(dt));
 		//if the distance between the bullet and target is low enough, terminate the bullet and damage the target
 		//pow and sqrt to get a positive distance, actual distance number is placeholder

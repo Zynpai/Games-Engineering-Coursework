@@ -43,7 +43,7 @@ void TurretController::Placeturret(string type) {
 			}
 			if (valid) {
 				Occupied.push_back(Tile);
-				if (turretpointer < 30) {
+				if (turretpointer < 50) {
 					if (type == "basic") {
 						//basic cost of 20, can be ballanced later
 						if (gui->getMoney()>= 20) {
@@ -56,8 +56,8 @@ void TurretController::Placeturret(string type) {
 							turret->setVisible(true);
 
 							auto tcomp = Componentlist.at(turretpointer);
-							tcomp->setDamage(5);
-							tcomp->setRate(1);
+							tcomp->setDamage(6);
+							tcomp->setRate(0.7);
 							tcomp->setRange(200);
 							tcomp->targetAir = true;
 							tcomp->targetGround = true;
@@ -81,7 +81,7 @@ void TurretController::Placeturret(string type) {
 
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(40);
-							tcomp->setRate(3);
+							tcomp->setRate(1.5);
 							tcomp->setRange(300);
 							tcomp->targetAir = false;
 							tcomp->targetGround = true;
@@ -104,7 +104,7 @@ void TurretController::Placeturret(string type) {
 
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(30);
-							tcomp->setRate(2);
+							tcomp->setRate(1);
 							tcomp->setRange(500);
 							tcomp->targetAir = true;
 							tcomp->targetGround = false;
@@ -153,18 +153,19 @@ void TurretController::update(double dt) {
 
 	}
 	if (placementMode) {
+		int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
+		int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
+		Vector2f Tile = Vector2f(xcomponent, ycomponent);
+
+		//put the ghost hovering over the nearest tile
+		Ghost->setPosition(Tile);
+		RGhost->setPosition(Tile);
 
 		Ghost->setAlive(true);
 		Ghost->setVisible(true);
 		RGhost->setAlive(true);
 		RGhost->setVisible(true);
-		int xcomponent = ((floor(Mouse::getPosition().x / 80)) * 80) + 40;
-		int ycomponent = ((floor(Mouse::getPosition().y / 80)) * 80) + 40;
-		Vector2f Tile = Vector2f(xcomponent, ycomponent);
-	
-		//put the ghost hovering over the nearest tile
-		Ghost->setPosition(Tile);
-		RGhost->setPosition(Tile);
+		
 		//depending on if the placement is valid, change the color of the ghost accordingly
 			if (ls::getTileAt(Tile) != ls::ENEMY) {
 				GhostComponent->getShape().setFillColor(red);

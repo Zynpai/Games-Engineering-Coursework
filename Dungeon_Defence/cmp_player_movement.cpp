@@ -38,7 +38,7 @@ void PlayerMovementComponent::update(double dt) {
 			a->move(_parent->getPosition() - bullet->getPosition());
 			bulletpointer++;
 			if (bulletpointer >= 5) { bulletpointer = 0; }
-			shotCooldown = 1.0f;
+			shotCooldown = 0.7f;
 			bullet->setAlive(true);
 			bullet->setVisible(true);
 		}
@@ -49,7 +49,8 @@ void PlayerMovementComponent::update(double dt) {
 		//Wall ability
 		if (wallCooldown <= 0.0f) {
 			Wall->setPosition(Vector2f(Mouse::getPosition()));
-
+			Wall->setAlive(true);
+			Wall->setVisible(true);
 			wallCooldown = 10.0f;
 		}
 
@@ -85,13 +86,18 @@ void PlayerMovementComponent::update(double dt) {
 		}
 	}
 	//reset the speed of affected creeps
-	if (tremorCooldown <= 2.0f) {
+	if (tremorCooldown <= 2.0f && Tremor->isAlive()) {
 		Tremor->setAlive(false);
 		Tremor->setVisible(false);
 		for (int i = 0; i < TremorList.size(); i++) {
 			TremorList.at(i)->setSpeed(TremorList.at(i)->getSpeed()*2);
 		}
 		TremorList.clear();
+	}
+	//wall only lasts for 5 seconds
+	if (wallCooldown <= 5.0f && Wall->isAlive()) {
+		Wall->setAlive(false);
+		Wall->setVisible(false);
 	}
 
 	//hotkeys for turrets

@@ -126,7 +126,7 @@ void GUI::updateTimer(int Time){
 }
 void GUI::updateWall(int Time) {
 	
-	if (time == 0) {
+	if (Time <= 0) {
 		wallCooldown.setFillColor(Color::Green);
 	}
 	else {
@@ -136,7 +136,7 @@ void GUI::updateWall(int Time) {
 }
 void GUI::updateTremor(int Time) {
 	
-	if (time == 0) {
+	if (Time <= 0) {
 		tremorCooldown.setFillColor(Color::Green);
 	}
 	else {

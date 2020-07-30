@@ -58,13 +58,13 @@ void WaveController::update(double dt) {
 				Componentlist.at(creepPointer)->flying = true;
 				Componentlist.at(creepPointer)->health = 5 * waveNo;
 				//placeholder, unknown how fast this is
-				Componentlist.at(creepPointer)->setSpeed(350.0f);
+				Componentlist.at(creepPointer)->setSpeed(400.0f);
 			}
 			else if (int(waveNo) % 2 == 0) {
 				//rogue, fast but frail
 				//spriteList.at(creepPointer)->sprite->setTexture(texturelist.at(2));
 				Componentlist.at(creepPointer)->flying = false;
-				Componentlist.at(creepPointer)->health = 5 * waveNo;
+				Componentlist.at(creepPointer)->health = 7 * waveNo;
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(300.0f);
 			}
@@ -72,7 +72,7 @@ void WaveController::update(double dt) {
 				//footman, slow but tough
 				//spriteList.at(creepPointer)->sprite->setTexture(texturelist.at(1));
 				Componentlist.at(creepPointer)->flying = false;
-				Componentlist.at(creepPointer)->health = 10 * waveNo;
+				Componentlist.at(creepPointer)->health = 9 * waveNo;
 				//1 armor every 4 waves
 				Componentlist.at(creepPointer)->armor = floor(0.25*waveNo);
 				//placeholder, unknown how fast this is

@@ -227,7 +227,7 @@ void GameScene::load() {
 
 	//time to settup a list of turrets to call appon, each with their own list of bullets.... yeah this is gonna be messy
 	//turret limit of 30, can be changed if needed
-	for (int j = 0; j < 30; j++) {
+	for (int j = 0; j < 50; j++) {
 		//hurray for more inefficiency!
 		std::vector<std::shared_ptr<Entity>> turretBullets;
 		std::vector<std::shared_ptr<BulletMovementComponent>> turretBulletComponents;
