@@ -34,7 +34,9 @@ WaveController::WaveController() {
 	//texturelist.push_back(tex);
 }
 
-
+void WaveController::skip() {
+	cooldown = 1;
+}
 
 void WaveController::update(double dt) {
 	if (cooldown > 0) { 

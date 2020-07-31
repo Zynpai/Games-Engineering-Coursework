@@ -9,6 +9,7 @@ using namespace std;
 sf::Text GUI::money;
 sf::Text GUI::lives;
 sf::Text GUI::waveTime;
+sf::Text GUI::skip;
 
 sf::Text GUI::Towers;
 sf::Text GUI::Abilities;
@@ -25,6 +26,7 @@ GUI::GUI() {
 		//it broke
 		throw string("Could not load font file :(");
 	}
+	//setting up all the text takes alot of lines....
 	money.setFont(font);
 	money.setString("Money: $ 100");
 	money.setCharacterSize(36);
@@ -45,9 +47,17 @@ GUI::GUI() {
 	waveTime.setFont(font);
 	waveTime.setString("Time until next wave: 60s");
 	waveTime.setFillColor(Color::Blue);
-	waveTime.setPosition(1530, 1000);
+	waveTime.setPosition(1530, 970);
 	waveTime.setOutlineColor(Color::Black);
 	waveTime.setOutlineThickness(1);
+
+	skip.setCharacterSize(30);
+	skip.setFont(font);
+	skip.setString("Press Enter to skip timer");
+	skip.setFillColor(Color::Blue);
+	skip.setPosition(1550, 1030);
+	skip.setOutlineColor(Color::Black);
+	skip.setOutlineThickness(1);
 
 	Basic.setCharacterSize(25);
 	Basic.setFont(font);
@@ -122,7 +132,7 @@ void GUI::updateTimer(int Time){
 	waveTime.setString("Time until next wave: "+ to_string(Time) +"s");
 }
 void GUI::updateWall(int Time) {
-	
+	//basic retinal feature, helps player understand the abilities are ready!
 	if (Time <= 0) {
 		wallCooldown.setFillColor(Color::Green);
 	}
@@ -132,7 +142,7 @@ void GUI::updateWall(int Time) {
 	wallCooldown.setString("Earth Wall (1): " + to_string(Time) + "s");
 }
 void GUI::updateTremor(int Time) {
-	
+	//basic retinal feature, helps player understand the abilities are ready!
 	if (Time <= 0) {
 		tremorCooldown.setFillColor(Color::Green);
 	}
@@ -143,7 +153,7 @@ void GUI::updateTremor(int Time) {
 }
 
 void GUI::update(double dt) {
-	//basic ui design, if you have enough to buy the tower, light up green
+	//basic ui design, if you have enough to buy the tower, light up green!
 	if (_money >= 20) {
 		Basic.setFillColor(Color::Green);
 	}
@@ -170,9 +180,11 @@ void GUI::update(double dt) {
 }
 
 void GUI::Render(RenderWindow &window) {
+	//draw the text
 	window.draw(money);
 	window.draw(lives);
 	window.draw(waveTime);
+	window.draw(skip);
 	window.draw(Basic);
 	window.draw(Fire);
 	window.draw(Lightning);

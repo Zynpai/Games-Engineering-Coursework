@@ -17,6 +17,8 @@ set(SFML_INCS "lib/sfml/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
 
 
+
+
 file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
 add_library(lib_tile_level_loader STATIC ${SOURCE_FILES})
 target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
@@ -36,3 +38,7 @@ file(GLOB_RECURSE SOURCES Dungeon_Defence/*.cpp Dungeon_Defence/*.h)
 add_executable(DUNGEON_DEFENCE ${SOURCES} )
 target_include_directories(DUNGEON_DEFENCE SYSTEM PRIVATE ${SFML_INCS})
 target_link_libraries(DUNGEON_DEFENCE sfml-graphics lib_tile_level_loader lib_maths lib_ecm)
+
+set_target_properties(${exe} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY 
+  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+)

@@ -4,6 +4,7 @@
 #include <ecm.h>
 #include "cmp_actor_movement.h"
 #include "turret_Controller.h"
+#include "Wave_controller.h"
 
 class PlayerMovementComponent : public ActorMovementComponent {
 public:
@@ -21,6 +22,7 @@ public:
 	std::shared_ptr<Entity> Wall;
 	std::shared_ptr<Entity> Tremor;
 	std::shared_ptr<TurretController> Tcontrol;
+	std::shared_ptr<WaveController> Wcontrol;
 	std::shared_ptr<GUI> gui;
 
 	int bulletpointer = 0;

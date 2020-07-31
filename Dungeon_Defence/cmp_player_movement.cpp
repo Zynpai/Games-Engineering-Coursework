@@ -1,6 +1,5 @@
 #include "cmp_player_movement.h"
 
-
 PlayerMovementComponent::PlayerMovementComponent(Entity* p)
 	: ActorMovementComponent(p) {
 	
@@ -114,6 +113,9 @@ void PlayerMovementComponent::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::T)) {
 		Tcontrol->updateStored("lightning");
 		Tcontrol->placementMode = true;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Enter)) {
+		Wcontrol->skip();
 	}
 
 

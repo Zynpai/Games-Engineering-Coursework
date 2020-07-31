@@ -13,7 +13,7 @@ public:
 	static sf::Text money;
 	static sf::Text lives;
 	static sf::Text waveTime;
-
+	static sf::Text skip;
 	//headers for different sections
 	static sf::Text Towers;
 	static sf::Text Abilities;

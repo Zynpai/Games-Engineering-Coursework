@@ -196,6 +196,7 @@ void GameScene::load() {
 	a->Creeplist = wControl->Creeplist;
 	a->creepComponentlist = wControl->Componentlist;
 	a->gui = gameGUI;
+	a->Wcontrol = wControl;
 
 	a->Tremor = make_shared<Entity>();
 	a->Tremor->setPosition(Vector2f(-50.0f, -50.0f));
@@ -205,7 +206,7 @@ void GameScene::load() {
 	b->getShape().setOrigin(Vector2f(100.0f, 100.0f));
 	a->Tremor->setAlive(false);
 	a->Tremor->setVisible(false);
-	Color transparent_red(200, 0, 0, 150);
+	Color transparent_red(200, 0, 0, 120);
 	b->getShape().setFillColor(transparent_red);
 
 

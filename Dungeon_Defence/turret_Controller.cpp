@@ -47,11 +47,11 @@ void TurretController::Placeturret(string type) {
 				}
 			}
 			if (valid) {
-				Occupied.push_back(Tile);
 				if (turretpointer < 50) {
 					if (type == "basic") {
 						//basic cost of 20, can be ballanced later
 						if (gui->getMoney()>= 20) {
+							Occupied.push_back(Tile);
 							gui->setMoney(gui->getMoney()-20);
 							auto turret = Turretlist.at(turretpointer);
 
@@ -76,6 +76,7 @@ void TurretController::Placeturret(string type) {
 					if (type == "fireball") {
 						//fireball cost of 50, can be ballanced later
 						if (gui->getMoney() >= 50) {
+							Occupied.push_back(Tile);
 							gui->setMoney(gui->getMoney() - 50);
 							auto turret = Turretlist.at(turretpointer);
 
@@ -100,6 +101,7 @@ void TurretController::Placeturret(string type) {
 					if (type == "lightning") {
 						//lightning cost of 40, can be ballanced later
 						if (gui->getMoney() >= 40) {
+							Occupied.push_back(Tile);
 							gui->setMoney(gui->getMoney() - 40);
 							auto turret = Turretlist.at(turretpointer);
 

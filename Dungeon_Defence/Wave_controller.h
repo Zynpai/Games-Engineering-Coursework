@@ -1,6 +1,6 @@
 //handle wave related stuff
 
-
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 #include <iostream>
@@ -19,8 +19,8 @@ using namespace sf;
 class WaveController {
 
 protected:
-	//60 seconds to learn controls, and place towers before 1st wave
-	float cooldown = 1.0f;
+	//30 seconds to learn controls, and place towers before 1st wave
+	float cooldown = 30.0f;
 	//time between each creep spawn, can be adjusted to make waves denser or sparser
 	float spacing = 0.6f;
 
@@ -40,6 +40,7 @@ public:
 	//std::vector<sf::Texture> texturelist;
 
 	void update(double dt);
+	void skip();
 };
 
 
