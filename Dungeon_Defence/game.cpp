@@ -135,8 +135,8 @@ void GameScene::load() {
 
 	auto wall = make_shared<Entity>();
 	std::vector<std::shared_ptr<Entity>> TargetList;
-	//now to make a list of reusable creeps, 20 should suffice
-	for (int l = 0; l < 20; l++) {
+	//now to make a list of reusable creeps, 40 should suffice
+	for (int l = 0; l < 40; l++) {
 		auto creep = make_shared<Entity>();
 		auto s = creep->addComponent<SpriteComponent>();
 		auto m = creep->addComponent<CreepMovementComponent>();

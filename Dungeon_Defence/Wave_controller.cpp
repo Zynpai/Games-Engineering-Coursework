@@ -89,17 +89,21 @@ void WaveController::update(double dt) {
 			Creeplist.at(creepPointer)->setAlive(true);
 			Creeplist.at(creepPointer)->setVisible(true);
 			creepPointer = creepPointer + 1;
+			wavepointer = wavepointer + 1;
 			spacing = 0.6f;
+			//time between waves, can be adjusted
+			
 		}
-
-
-		//time between waves, can be adjusted
-		if (creepPointer == 20) {
-
+		if (wavepointer == 20) {
+			wavepointer = 0;
 			cooldown = 30.0f;
 			waveNo = waveNo + 1;
-			creepPointer = 0;
+			if (creepPointer == 40) {
+				creepPointer = 0;
+			}
 		}
+
+		
 	}
 
 }

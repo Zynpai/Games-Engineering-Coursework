@@ -25,7 +25,8 @@ protected:
 	float spacing = 0.6f;
 
 	int creepPointer = 0;
-
+	//for use with bigger creep list
+	int wavepointer = 0;
 	
 public:
 	//what wave we are on, can be used for scaling and special waves, must be float for dividing
