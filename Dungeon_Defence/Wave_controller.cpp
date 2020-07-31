@@ -16,22 +16,22 @@ using namespace sf;
 
 WaveController::WaveController() {
 	//on creation load all textures into vector
-	//sf::Texture tex;
-	//if (!tex.loadFromFile("res/sprites/EagleIdle.png")) {
+	sf::Texture tex;
+	if (!tex.loadFromFile("res/sprites/EagleIdle.png")) {
 		//error
-	//	throw string("failed to load texture");
-	//}
-	//texturelist.push_back(tex);
-	//if (!tex.loadFromFile("res/sprites/FootManIdle.png")) {
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
+	if (!tex.loadFromFile("res/sprites/FootManIdle.png")) {
 		//error
-	//	throw string("failed to load texture");
-	//}
-	//texturelist.push_back(tex);
-	//if (!tex.loadFromFile("res/sprites/RogueIdle.png")) {
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
+	if (!tex.loadFromFile("res/sprites/RogueIdle.png")) {
 		//error
-	//	throw string("failed to load texture");
-	//}
-	//texturelist.push_back(tex);
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
 }
 
 void WaveController::skip() {
@@ -56,32 +56,32 @@ void WaveController::update(double dt) {
 			//every 5th wave is flying, can be adjusted or changed
 			if (int(waveNo) % 5 == 0) {
 				//eagle, fast, frail and flying
-				//spriteList.at(creepPointer)->sprite->setTexture(texturelist.at(0));
+				spriteList.at(creepPointer)->setTexture(texturelist.at(0));
 				Componentlist.at(creepPointer)->flying = true;
 				Componentlist.at(creepPointer)->health = 5 * waveNo;
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(400.0f);
-				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Cyan);
+				//Shapelist.at(creepPointer)->getShape().setFillColor(Color::Cyan);
 			}
 			else if (int(waveNo) % 2 == 0) {
 				//rogue, fast but frail
-				//spriteList.at(creepPointer)->sprite->setTexture(texturelist.at(2));
+				spriteList.at(creepPointer)->setTexture(texturelist.at(2));
 				Componentlist.at(creepPointer)->flying = false;
 				Componentlist.at(creepPointer)->health = 7 * waveNo;
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(300.0f);
-				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Yellow);
+				//Shapelist.at(creepPointer)->getShape().setFillColor(Color::Yellow);
 			}
 			else {
 				//footman, slow but tough
-				//spriteList.at(creepPointer)->sprite->setTexture(texturelist.at(1));
+				spriteList.at(creepPointer)->setTexture(texturelist.at(1));
 				Componentlist.at(creepPointer)->flying = false;
 				Componentlist.at(creepPointer)->health = 9 * waveNo;
 				//1 armor every 4 waves
 				Componentlist.at(creepPointer)->armor = floor(0.25*waveNo);
 				//placeholder, unknown how fast this is
 				Componentlist.at(creepPointer)->setSpeed(200.0f);
-				Shapelist.at(creepPointer)->getShape().setFillColor(Color::Red);
+				//Shapelist.at(creepPointer)->getShape().setFillColor(Color::Red);
 			}
 			//wave 1 & 2 = 1, 3 & 4 = 2 etc....
 			Componentlist.at(creepPointer)->reward = floor(0.51 + waveNo / 2);

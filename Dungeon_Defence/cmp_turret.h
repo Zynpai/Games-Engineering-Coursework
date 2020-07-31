@@ -30,7 +30,7 @@ public:
 
 	std::vector<std::shared_ptr<Entity>> Bulletlist;
 	std::vector<std::shared_ptr<BulletMovementComponent>> Componentlist;
-
+	void setBulletTex(sf::Texture tex);
 
 	float getRange() const;
 	void setRange(float _range);

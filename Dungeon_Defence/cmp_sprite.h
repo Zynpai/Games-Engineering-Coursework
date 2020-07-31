@@ -22,13 +22,14 @@ public:
 	}
 };
 
-
+//tried to get this to work, did not work in end
 class SpriteComponent : public Component {
 public:
+	Texture tex;
 	SpriteComponent(Entity *p);
-	shared_ptr<Sprite> sprite;
+	Sprite sprite;
 	void update(double dt) override;
 	void render() override;
-
+	void setTexture(Texture tex);
 
 };

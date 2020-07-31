@@ -1,5 +1,7 @@
 #include "cmp_sprite.h"
 #include "system_renderer.h"
+using namespace std;
+using namespace sf;
 
 void ShapeComponent::update(double dt) {
 	_shape->setPosition(_parent->getPosition());
@@ -15,7 +17,13 @@ SpriteComponent::SpriteComponent(Entity* p) : Component(p) {
 }
 
 void SpriteComponent::update(double dt) {
-	sprite->setPosition(_parent->getPosition());
+	sprite.setPosition(_parent->getPosition());
 }
 
-void SpriteComponent::render() { Renderer::queue(sprite.get()); }
+void SpriteComponent::setTexture(Texture texture) {
+	tex = texture;
+}
+void SpriteComponent::render() { 
+	sprite.setTexture(tex);
+	Renderer::getWindow().draw(sprite);
+}

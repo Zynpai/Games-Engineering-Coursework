@@ -25,6 +25,41 @@ TurretController::TurretController() {
 	red.b = 0;
 	red.a = 150;
 
+	//on creation load all textures into vector
+	sf::Texture tex;
+	if (!tex.loadFromFile("res/sprites/GoblinAIdle.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
+	if (!tex.loadFromFile("res/sprites/GoblinMIdle.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
+	if (!tex.loadFromFile("res/sprites/LightningMage.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	texturelist.push_back(tex);
+
+	sf::Texture btex;
+	if (!btex.loadFromFile("res/sprites/Arrow.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	bulletTexturelist.push_back(btex);
+	if (!btex.loadFromFile("res/sprites/Fire.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	bulletTexturelist.push_back(btex);
+	if (!btex.loadFromFile("res/sprites/Lightning.png")) {
+		//error
+		throw string("failed to load texture");
+	}
+	bulletTexturelist.push_back(btex);
+
 }
 void TurretController::reset() {
 	Occupied.clear();
@@ -59,14 +94,15 @@ void TurretController::Placeturret(string type) {
 							turret->setPosition(Tile);
 							turret->setAlive(true);
 							turret->setVisible(true);
-							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Yellow);
+							//Shapelist.at(turretpointer)->getShape().setFillColor(Color::Yellow);
+							spriteList.at(turretpointer)->setTexture(texturelist.at(0));
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(6);
 							tcomp->setRate(0.7);
 							tcomp->setRange(200);
 							tcomp->targetAir = true;
 							tcomp->targetGround = true;
-							
+							tcomp->setBulletTex(bulletTexturelist.at(0));
 
 
 							turretpointer++;
@@ -85,14 +121,15 @@ void TurretController::Placeturret(string type) {
 							turret->setAlive(true);
 							turret->setVisible(true);
 
-							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Red);
+							//Shapelist.at(turretpointer)->getShape().setFillColor(Color::Red);
+							spriteList.at(turretpointer)->setTexture(texturelist.at(1));
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(40);
 							tcomp->setRate(1.5);
 							tcomp->setRange(300);
 							tcomp->targetAir = false;
 							tcomp->targetGround = true;
-							
+							tcomp->setBulletTex(bulletTexturelist.at(1));
 
 
 							turretpointer++;
@@ -110,14 +147,15 @@ void TurretController::Placeturret(string type) {
 							turret->setAlive(true);
 							turret->setVisible(true);
 
-							Shapelist.at(turretpointer)->getShape().setFillColor(Color::Cyan);
-
+							//Shapelist.at(turretpointer)->getShape().setFillColor(Color::Cyan);
+							spriteList.at(turretpointer)->setTexture(texturelist.at(2));
 							auto tcomp = Componentlist.at(turretpointer);
 							tcomp->setDamage(30);
 							tcomp->setRate(1);
 							tcomp->setRange(500);
 							tcomp->targetAir = true;
 							tcomp->targetGround = false;
+							tcomp->setBulletTex(bulletTexturelist.at(2));
 								
 
 

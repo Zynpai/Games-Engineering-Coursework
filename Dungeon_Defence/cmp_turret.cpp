@@ -17,7 +17,15 @@ TurretComponent::TurretComponent(Entity* p)
 	: Component(p) {
 	
 }
+void TurretComponent::setBulletTex(Texture tex) {
 
+	for (int i = 0; i < Bulletlist.size(); i++) {
+		auto s = Bulletlist.at(i)->addComponent<SpriteComponent>();
+		s->sprite.setOrigin(4,8);
+		s->setTexture(tex);
+	}
+
+}
 void TurretComponent::update(double dt) {
 	//increment cooldown, then check if ready to fire
 	if (_cooldown > 0) { _cooldown = _cooldown - dt; }
